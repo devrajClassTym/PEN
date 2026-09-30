@@ -1,0 +1,89 @@
+import Image from "next/image";
+import FullscreenMenu from "@/components/navigation/fullscreen-menu";
+
+type HeroProps = {
+  videoSrc?: string;
+  posterSrc?: string;
+  enquiryHref?: string;
+};
+
+export default function Hero({
+  videoSrc = "https://assets.mixkit.co/videos/28320/28320-720.mp4",
+  posterSrc,
+  enquiryHref,
+}: HeroProps) {
+  const enquiryClassName =
+    "inline-flex min-h-12 items-center justify-center gap-4 rounded-full border border-white/70 px-7 py-3 text-sm font-medium text-white transition-colors hover:bg-white hover:text-[#44321b] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white";
+
+  return (
+    <section aria-labelledby="hero-title" className="bg-white">
+      <div className="relative isolate flex min-h-dvh items-center justify-center overflow-hidden bg-[#44321b] px-6 pt-48 pb-20 sm:pt-56 sm:pb-24 text-center text-white sm:px-12">
+        <FullscreenMenu enquiryHref={enquiryHref} />
+        <div className="absolute inset-x-0 top-6 flex justify-center sm:top-8">
+          <Image
+            src="/schoolLogo.png"
+            alt="Pereira English Noble School — established 1983"
+            width={144}
+            height={144}
+            priority
+            className="h-28 w-28 rounded-full bg-[#f5f1e6] object-contain shadow-lg ring-4 ring-white/15 sm:h-36 sm:w-36"
+          />
+        </div>
+        {/* Temporary school footage from Mixkit (Stock Video Free License):
+            https://mixkit.co/free-stock-video/students-boy-and-girl-walking-and-talking-around-the-school-28320/ */}
+        <video
+          className="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover motion-reduce:hidden"
+          src={videoSrc}
+          poster={posterSrc}
+          autoPlay
+          muted
+          loop
+          playsInline
+          controls={false}
+          disablePictureInPicture
+          preload="metadata"
+          aria-hidden="true"
+          tabIndex={-1}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(25,18,10,0.62)_0%,rgba(25,18,10,0.35)_40%,rgba(25,18,10,0.45)_100%)]"
+        />
+        <div className="mx-auto flex w-full max-w-5xl flex-col items-center">
+          <p className="mb-7 font-sans text-[10px] font-medium uppercase tracking-[0.22em] text-white/90 sm:text-xs sm:tracking-[0.3em]">
+            P.E.N Schools, Vizag — since 1983
+          </p>
+          <h1
+            id="hero-title"
+            className="text-balance font-[Georgia,'Times_New_Roman',serif] text-[clamp(2.7rem,6.8vw,6.5rem)] leading-[1.08] font-normal tracking-[-0.045em]"
+          >
+            Beyond a School —
+            <br />
+            <span className="italic">A Way of Life</span>
+          </h1>
+          <p className="mt-8 max-w-[39rem] text-pretty font-sans text-sm leading-[1.9] font-normal text-white/90 sm:mt-10 sm:text-base lg:text-lg">
+            For over four decades, P.E.N has shaped young minds with the same
+            quiet conviction: that a child&apos;s growth is measured in character
+            as much as in marks.
+          </p>
+          <div className="mt-9 sm:mt-10">
+            {enquiryHref ? (
+              <a href={enquiryHref} className={enquiryClassName}>
+                Enquire now <span aria-hidden="true">↗</span>
+              </a>
+            ) : (
+              <button
+                type="button"
+                disabled
+                title="Enquiries will be available soon"
+                className={`${enquiryClassName} disabled:cursor-not-allowed`}
+              >
+                Enquire now <span aria-hidden="true">↗</span>
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </section> 
+  );
+}
