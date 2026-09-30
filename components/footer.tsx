@@ -3,6 +3,8 @@ import Link from "next/link";
 
 const links = [
   { label: "About us", href: "/about-us" },
+  { label: "Beyond academics", href: "/beyond-academics" },
+  { label: "Gallery", href: "/gallery" },
   { label: "Our campuses", href: "/#campus" },
   { label: "Why P.E.N", href: "/#why-pen" },
   { label: "Founder’s desk", href: "/#founder-desk" },
