@@ -1,5 +1,4 @@
 import Image from "next/image";
-import FullscreenMenu from "@/components/navigation/fullscreen-menu";
 
 type HeroProps = {
   videoSrc?: string;
@@ -18,7 +17,6 @@ export default function Hero({
   return (
     <section aria-labelledby="hero-title" className="bg-white">
       <div className="relative isolate flex min-h-dvh items-center justify-center overflow-hidden bg-[#44321b] px-6 pt-48 pb-20 sm:pt-56 sm:pb-24 text-center text-white sm:px-12">
-        <FullscreenMenu enquiryHref={enquiryHref} />
         <div className="absolute inset-x-0 top-6 flex justify-center sm:top-8">
           <Image
             src="/schoolLogo.png"

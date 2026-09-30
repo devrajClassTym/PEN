@@ -93,7 +93,7 @@ export default function FullscreenMenu({ enquiryHref }: { enquiryHref?: string }
         aria-expanded={isOpen}
         aria-controls="site-navigation"
         aria-haspopup="dialog"
-        className="absolute top-7 right-5 z-30 flex h-12 w-12 flex-col items-center justify-center gap-[7px] rounded-full border border-white/40 bg-[#44321b]/30 text-white backdrop-blur-sm transition-colors hover:bg-[#44321b]/70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:top-9 sm:right-10"
+        className="fixed top-7 right-5 z-50 flex h-12 w-12 flex-col items-center justify-center gap-[7px] rounded-full border border-white/40 bg-[#44321b]/90 text-white shadow-lg backdrop-blur-sm transition-colors hover:bg-[#44321b] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#b49a70] sm:top-9 sm:right-10"
       >
         <span aria-hidden="true" className="h-px w-5 bg-current" />
         <span aria-hidden="true" className="h-px w-5 bg-current" />

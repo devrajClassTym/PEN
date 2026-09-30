@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const links = [
+  { label: "About us", href: "/about-us" },
   { label: "Our campuses", href: "/#campus" },
   { label: "Why P.E.N", href: "/#why-pen" },
   { label: "Founder’s desk", href: "/#founder-desk" },
