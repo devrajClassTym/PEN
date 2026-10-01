@@ -4,12 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-// Sample content; replace with confirmed school events and photography.
-const events = [
-  { date: "2026-10-17", day: "17", month: "Oct 2026", time: "9:00 AM – 12:00 PM", name: "Discover P.E.N — Open House", description: "Step inside our classrooms, meet our educators, and experience a day of discovery with the P.E.N community." },
-  { date: "2026-11-07", day: "07", month: "Nov 2026", time: "10:00 AM – 2:00 PM", name: "Young Innovators Fair", description: "Celebrate big ideas from curious minds as our students share their experiments, inventions, and creative projects." },
-  { date: "2026-12-12", day: "12", month: "Dec 2026", time: "4:00 PM – 7:00 PM", name: "An Evening of Expression", description: "Join our school community for an evening of music, movement, and stories brought to life by our talented students." },
-];
+import { schoolEvents } from "@/lib/school-events";
+
+const events = schoolEvents.flatMap((event) => event.schedule ? [{ ...event.schedule, name: event.title, description: event.description }] : []);
 
 export default function UpcomingEvents() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -123,7 +120,7 @@ export default function UpcomingEvents() {
         </div>
         <div className="mt-6 flex justify-center">
           <Link
-            href="/events"
+            href="/school-calendar"
             className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#d9c6a5]/40 px-7 py-3 text-sm font-medium transition-colors hover:bg-[#d9c6a5] hover:text-[#44321b] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d9c6a5]"
           >
             View all events

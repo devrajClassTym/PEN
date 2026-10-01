@@ -1,0 +1,19 @@
+export type SchoolEvent = {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  details: string;
+  schedule?: { date: string; day: string; month: string; time: string };
+};
+
+// Sample calendar content. Replace with the school's confirmed events before launch.
+export const schoolEvents: SchoolEvent[] = [
+  { id: "open-house", category: "Discover", title: "Discover P.E.N — Open House", description: "Step inside our classrooms, meet our educators, and experience a day of discovery with the P.E.N community.", details: "Explore learning spaces and bring your questions about school life and admissions. Please contact the school to confirm visiting arrangements before making plans.", schedule: { date: "2026-10-17", day: "17", month: "Oct 2026", time: "9:00 AM – 12:00 PM" } },
+  { id: "innovators-fair", category: "Explore", title: "Young Innovators Fair", description: "Celebrate big ideas from curious minds as our students share their experiments, inventions, and creative projects.", details: "Discover the questions behind student projects and the ideas that bring them to life. Participation and visitor arrangements will be shared by the school.", schedule: { date: "2026-11-07", day: "07", month: "Nov 2026", time: "10:00 AM – 2:00 PM" } },
+  { id: "evening-of-expression", category: "Celebrate", title: "An Evening of Expression", description: "Join our school community for an evening of music, movement, and stories brought to life by our talented students.", details: "A proposed celebration of student creativity through performance. The programme and attendance details will be announced by the school.", schedule: { date: "2026-12-12", day: "12", month: "Dec 2026", time: "4:00 PM – 7:00 PM" } },
+  { id: "parent-teacher-meet", category: "Connect", title: "Parent–Teacher Meet", description: "Time to share progress, ask questions, and discuss the next steps in your child’s learning.", details: "Bring your questions and observations for a conversation about your child’s progress. Please contact the school for class-wise meeting dates and appointment details." },
+  { id: "storytelling-day", category: "Express", title: "Reading & Storytelling Day", description: "Stories, favourite characters, and a celebration of the joy of reading together.", details: "A proposed day of reading and sharing stories to encourage expression and imagination. Class-wise activities and any preparation will be communicated by the school." },
+  { id: "art-showcase", category: "Create", title: "Art & Learning Showcase", description: "A window into students’ imagination through artwork and classroom projects.", details: "Explore the ideas and learning behind creative classroom work. Exhibition timings and arrangements for families will be confirmed by the school." },
+  { id: "sports-day", category: "Celebrate", title: "Community Sports Day", description: "A day of movement, teamwork, and cheering each other on.", details: "A proposed celebration of participation and team spirit. The school will share the activity schedule, venue, and any items students need to bring." },
+];

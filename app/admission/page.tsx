@@ -1,3 +1,4 @@
+import SchoolLogo from "@/components/school-logo";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -31,7 +32,7 @@ export default function AdmissionPage() {
         <Image src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=2200&q=85" alt="" fill priority unoptimized sizes="100vw" className="-z-20 object-cover" />
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-b from-[#201b13]/65 via-[#201b13]/55 to-[#201b13]/80" />
         <Link href="/" aria-label="P.E.N Schools home" className="absolute top-6 left-1/2 -translate-x-1/2 rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 sm:top-8">
-          <Image src="/schoolLogo.png" alt="" width={144} height={144} priority className="h-28 w-28 rounded-full object-contain sm:h-36 sm:w-36" />
+          <SchoolLogo />
         </Link>
         <div className="content-container">
           <p className="mb-6 text-xs tracking-[0.25em] text-[#d9c6a5] uppercase">Admission at P.E.N</p>

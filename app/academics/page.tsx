@@ -1,5 +1,5 @@
+import SchoolLogo from "@/components/school-logo";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import EventsCarousel from "@/components/academics/events-carousel";
 
@@ -19,7 +19,7 @@ export default function AcademicsPage() {
     <main className="flex-1 bg-[#f8f6f0] text-[#44321b]">
       <section aria-labelledby="academics-title" className="relative overflow-hidden bg-[#44321b] pt-56 pb-20 text-center text-[#f8f6f0] sm:pt-64 sm:pb-24">
         <Link href="/" aria-label="P.E.N Schools home" className="absolute top-6 left-1/2 -translate-x-1/2 rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 sm:top-8">
-          <Image src="/schoolLogo.png" alt="" width={144} height={144} priority className="h-28 w-28 rounded-full object-contain sm:h-36 sm:w-36" />
+          <SchoolLogo />
         </Link>
         <div className="content-container">
         <p className="mb-6 text-xs tracking-[0.25em] text-[#d9c6a5] uppercase">Academics at P.E.N</p>

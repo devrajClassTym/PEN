@@ -1,4 +1,4 @@
-import Image from "next/image";
+import SchoolLogo from "@/components/school-logo";
 
 type HeroProps = {
   videoSrc?: string;
@@ -18,14 +18,7 @@ export default function Hero({
     <section aria-labelledby="hero-title" className="bg-white">
       <div className="relative isolate flex min-h-dvh items-center justify-center overflow-hidden bg-[#44321b] px-6 pt-48 pb-20 sm:pt-56 sm:pb-24 text-center text-white sm:px-12">
         <div className="absolute inset-x-0 top-6 flex justify-center sm:top-8">
-          <Image
-            src="/schoolLogo.png"
-            alt="Pereira English Noble School — established 1983"
-            width={144}
-            height={144}
-            priority
-            className="h-28 w-28 rounded-full bg-[#f5f1e6] object-contain shadow-lg ring-4 ring-white/15 sm:h-36 sm:w-36"
-          />
+          <SchoolLogo alt="Pereira English Noble School — established 1983" className="bg-[#f5f1e6] shadow-lg ring-4 ring-white/15" />
         </div>
         {/* Temporary school footage from Mixkit (Stock Video Free License):
             https://mixkit.co/free-stock-video/students-boy-and-girl-walking-and-talking-around-the-school-28320/ */}

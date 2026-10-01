@@ -1,0 +1,9 @@
+// Fictional profiles for layout review. Replace with approved alumni details.
+export const schoolAlumni = [
+  { id: "aarav", name: "Aarav Rao", initials: "AR", batch: "2012", field: "Technology", role: "Software Engineer", location: "Bengaluru", story: "Turning a love for problem-solving into thoughtful digital experiences, with curiosity at the heart of every project.", color: "bg-[#e3e7db]" },
+  { id: "ananya", name: "Ananya Sharma", initials: "AS", batch: "2014", field: "Design", role: "Architect", location: "Hyderabad", story: "Exploring how spaces bring people together, and finding inspiration in the everyday details of the world around her.", color: "bg-[#ecded3]" },
+  { id: "rohan", name: "Rohan Kumar", initials: "RK", batch: "2010", field: "Healthcare", role: "Doctor", location: "Visakhapatnam", story: "Following a path shaped by empathy, lifelong learning, and a commitment to caring for the community.", color: "bg-[#dce5e5]" },
+  { id: "meera", name: "Meera Nair", initials: "MN", batch: "2015", field: "Creative arts", role: "Visual Designer", location: "Chennai", story: "Bringing stories to life through colour and illustration, and making space for imagination in everyday work.", color: "bg-[#e8dfeb]" },
+  { id: "aditya", name: "Aditya Verma", initials: "AV", batch: "2011", field: "Enterprise", role: "Entrepreneur", location: "Pune", story: "Building ideas with a spirit of collaboration, learning from each challenge, and celebrating the people behind the progress.", color: "bg-[#eae2cd]" },
+  { id: "ishita", name: "Ishita Reddy", initials: "IR", batch: "2016", field: "Education", role: "Educator", location: "Visakhapatnam", story: "Helping young learners ask questions, discover their strengths, and grow in confidence one small step at a time.", color: "bg-[#dfe6dc]" },
+];

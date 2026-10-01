@@ -1,0 +1,21 @@
+export type SchoolJob = {
+  id: string;
+  title: string;
+  department: string;
+  type: string;
+  location: string;
+  experience: string;
+  summary: string;
+  responsibilities: string[];
+  qualifications: string[];
+};
+
+// Sample openings for preview; replace with approved vacancies and requirements.
+export const schoolJobs: SchoolJob[] = [
+  { id: "primary-teacher", title: "Primary School Teacher", department: "Teaching", type: "Full-time", location: "On campus", experience: "2+ years preferred", summary: "Create a welcoming classroom where young learners build strong foundations and the confidence to ask questions.", responsibilities: ["Plan engaging, age-appropriate lessons and activities.", "Observe student progress and offer supportive feedback.", "Work with families and colleagues to support each child."], qualifications: ["Relevant degree and teacher-training qualification.", "Experience supporting primary-age learners.", "Clear communication and a patient, collaborative approach."] },
+  { id: "science-teacher", title: "Science Teacher", department: "Teaching", type: "Full-time", location: "On campus", experience: "2+ years preferred", summary: "Bring scientific ideas to life through thoughtful questions, practical exploration, and everyday connections.", responsibilities: ["Prepare lessons that connect scientific concepts with practical examples.", "Guide safe classroom experiments and projects.", "Assess understanding and adapt lessons to learning needs."], qualifications: ["Relevant science degree and teaching qualification.", "Strong subject knowledge and classroom experience.", "Confidence planning safe practical learning activities."] },
+  { id: "english-teacher", title: "English Teacher", department: "Teaching", type: "Full-time", location: "On campus", experience: "2+ years preferred", summary: "Help students find their voice through reading, writing, conversation, and a love of stories.", responsibilities: ["Plan lessons that develop language and communication skills.", "Encourage reading, creative expression, and discussion.", "Provide constructive feedback on students’ work."], qualifications: ["Relevant English degree and teaching qualification.", "Strong written and spoken communication skills.", "An inclusive approach to supporting different learning needs."] },
+  { id: "sports-educator", title: "Physical Education Teacher", department: "Sports & wellbeing", type: "Full-time", location: "On campus", experience: "1+ years preferred", summary: "Encourage movement, teamwork, and positive participation through inclusive sports and physical education.", responsibilities: ["Plan age-appropriate physical education sessions.", "Promote safe participation and respectful team spirit.", "Support the organisation of school sports activities."], qualifications: ["Relevant physical education qualification.", "Experience leading activities for school-age children.", "Knowledge of safe activity planning and student supervision."] },
+  { id: "admissions-coordinator", title: "Admissions Coordinator", department: "Administration", type: "Full-time", location: "On campus", experience: "1+ years preferred", summary: "Be a welcoming first point of contact for families as they explore the next step in their child’s education.", responsibilities: ["Respond to enquiries and coordinate campus visits.", "Guide families through admission requirements.", "Maintain organised records and collaborate with school teams."], qualifications: ["A relevant graduate qualification.", "Strong organisation and interpersonal skills.", "Experience in administration or a family-facing role preferred."] },
+  { id: "art-educator", title: "Art Educator", department: "Creative arts", type: "Full-time", location: "On campus", experience: "1+ years preferred", summary: "Make space for imagination and help children explore ideas through colour, materials, and creative expression.", responsibilities: ["Develop creative activities across different media.", "Support students in expressing and discussing their ideas.", "Help prepare displays of classroom artwork."], qualifications: ["Relevant art or design qualification.", "Experience facilitating creative learning for children.", "A thoughtful approach to materials, safety, and inclusion."] },
+];

@@ -1,3 +1,4 @@
+import SchoolLogo from "@/components/school-logo";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,7 +19,7 @@ export default function AboutUs() {
       <section aria-labelledby="about-title" className="relative overflow-hidden px-5 pt-6 pb-16 sm:px-8 sm:pt-8 sm:pb-20 lg:px-10">
         <div className="mx-auto max-w-[1400px]">
           <Link href="/" aria-label="P.E.N Schools home" className="mx-auto flex w-fit rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#44321b]">
-            <Image src="/schoolLogo.png" alt="" width={144} height={144} priority className="h-28 w-28 object-contain sm:h-36 sm:w-36" />
+            <SchoolLogo />
           </Link>
 
           <div className="grid items-center gap-12 pt-14 sm:pt-20 lg:grid-cols-[1.35fr_0.65fr] lg:gap-20">

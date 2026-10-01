@@ -1,5 +1,5 @@
+import SchoolLogo from "@/components/school-logo";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import ContactForm from "@/components/contact/contact-form";
 import CampusCarousel from "@/components/contact/campus-carousel";
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function ContactUs() {
   return (
     <main className="flex-1 bg-[#f8f6f0] text-[#44321b]">
-      <header className="px-6 pt-6 sm:pt-8"><Link href="/" aria-label="P.E.N Schools home" className="mx-auto flex w-fit rounded-full focus-visible:outline-2 focus-visible:outline-offset-4"><Image src="/schoolLogo.png" alt="" width={144} height={144} priority className="h-28 w-28 rounded-full object-contain sm:h-36 sm:w-36" /></Link></header>
+      <header className="px-6 pt-6 sm:pt-8"><Link href="/" aria-label="P.E.N Schools home" className="mx-auto flex w-fit rounded-full focus-visible:outline-2 focus-visible:outline-offset-4"><SchoolLogo /></Link></header>
       <section aria-labelledby="contact-title" className="px-5 py-14 sm:px-8 lg:px-10 lg:py-20">
         <div className="mx-auto grid max-w-[1400px] items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
           <div><p className="mb-6 text-sm font-medium tracking-[0.2em] uppercase">Contact us</p><h1 id="contact-title" className="font-[Georgia,'Times_New_Roman',serif] text-[clamp(3rem,5.5vw,5.5rem)] leading-[1.08] tracking-[-0.045em]">Every connection<br />starts with <span className="italic">hello.</span></h1><p className="mt-7 max-w-lg text-lg leading-[1.9] text-[#44321b]/75">A question about admissions, a campus visit, or simply getting to know us — we’d love to hear from you.</p><div className="mt-9 border-l-2 border-[#b49a70] pl-5"><p className="font-[Georgia,'Times_New_Roman',serif] text-2xl italic">Let’s find your next step, together.</p><p className="mt-3 text-base text-[#44321b]/70">Share a little about what you’re looking for.</p></div></div>

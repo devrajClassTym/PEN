@@ -1,3 +1,4 @@
+import SchoolLogo from "@/components/school-logo";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -28,7 +29,7 @@ export default function GalleryPage() {
     <main id="top" className="flex-1 bg-[#f8f6f0] text-[#44321b]">
       <header className="px-6 pt-6 pb-12 text-center sm:pt-8 sm:pb-16">
         <Link href="/" aria-label="P.E.N Schools home" className="mx-auto flex w-fit rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#44321b]">
-          <Image src="/schoolLogo.png" alt="" width={144} height={144} priority className="h-28 w-28 rounded-full object-contain sm:h-36 sm:w-36" />
+          <SchoolLogo />
         </Link>
         <div className="mx-auto mt-12 max-w-3xl sm:mt-16">
           <p className="mb-5 text-sm font-medium tracking-[0.2em] uppercase">The gallery</p>

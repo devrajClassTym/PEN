@@ -1,3 +1,4 @@
+import SchoolLogo from "@/components/school-logo";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,7 +17,7 @@ export default function BeyondAcademics() {
         <Image src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=2200&q=85" alt="" fill priority unoptimized sizes="100vw" className="-z-20 object-cover" />
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-b from-[#201b13]/70 via-[#201b13]/45 to-[#201b13]/80" />
         <Link href="/" aria-label="P.E.N Schools home" className="absolute top-6 left-1/2 -translate-x-1/2 focus-visible:outline-2 focus-visible:outline-offset-4 sm:top-8">
-          <Image src="/schoolLogo.png" alt="" width={144} height={144} priority className="h-28 w-28 rounded-full object-contain sm:h-36 sm:w-36" />
+          <SchoolLogo />
         </Link>
         <div className="mx-auto max-w-4xl">
           <p className="mb-6 text-sm font-medium tracking-[0.2em] uppercase">Beyond academics</p>
