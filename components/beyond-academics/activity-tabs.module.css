@@ -13,23 +13,16 @@
 .heading h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(2.4rem, 4vw, 4rem); line-height: 1.15; letter-spacing: -.045em; }
 .heading h2 span { font-style: italic; }
 .subtitle { margin-top: 18px; font-size: 17px; line-height: 1.8; color: #44321bbf; }
-.motionToggle { margin-top: 20px; min-height: 44px; padding: 8px 18px; border: 1px solid #44321b40; border-radius: 999px; font-size: 14px; cursor: pointer; }
-.motionToggle:hover { background: #eee8da; }
-.motionToggle:focus-visible { outline: 2px solid #92764d; outline-offset: 4px; }
 .collage { position: relative; isolation: isolate; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: 60px 5%; padding: 50px 3% 80px; }
 .backdrop { position: absolute; z-index: -1; inset: 7% 2%; border-radius: 40% 55% 45% 35%; opacity: .6; }
-.photo { min-width: 0; margin: 0; padding: 10px 10px 0; background: #fffdf8; box-shadow: 0 18px 40px #44321b26; border: 1px solid #44321b10; rotate: -5deg; animation: float 8s ease-in-out infinite; }
-.photo:nth-of-type(3n + 2) { margin-top: 70px; rotate: 5deg; animation-delay: -3s; animation-duration: 10s; }
-.photo:nth-of-type(3n) { margin-top: 18px; rotate: -3deg; animation-delay: -5s; animation-duration: 9s; }
-.collage:hover .photo, .collage[data-paused="true"] .photo { animation-play-state: paused; }
+.photo { min-width: 0; margin: 0; padding: 10px 10px 0; background: #fffdf8; box-shadow: 0 18px 40px #44321b26; border: 1px solid #44321b10; rotate: -5deg;  }
+.photo:nth-of-type(3n + 2) { margin-top: 70px; rotate: 5deg; }
+.photo:nth-of-type(3n) { margin-top: 18px; rotate: -3deg; }
 .imageWrap { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
 .photo:nth-of-type(3n + 2) .imageWrap { aspect-ratio: 4 / 5; }
 .image { object-fit: cover; }
 .photo figcaption { padding: 16px 4px 18px; font-family: Georgia, 'Times New Roman', serif; font-style: italic; text-align: center; font-size: 18px; }
-@keyframes float {
-  0%, 100% { translate: -5px 0; }
-  50% { translate: 5px -20px; }
-}
+
 @media (max-width: 1023px) {
   .collage { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 45px 7%; }
   .photo:nth-of-type(n) { margin-top: 0; }
@@ -48,6 +41,5 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .photo { animation: none; }
-  .motionToggle { display: none; }
   .tab { transition: none; }
 }

@@ -56,7 +56,6 @@ export default function EventsCarousel() {
           <p className="mb-5 text-xs tracking-[0.22em] uppercase">03 / Upcoming events</p>
           <h2 id="academic-events-title" className="font-[Georgia,serif] text-4xl leading-tight tracking-tight sm:text-5xl">What’s <span className="italic">Happening Now</span></h2>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-[#44321b]/75">Moments to learn, connect, and celebrate together.</p>
-          <p className="mt-3 text-xs text-[#44321b]/65">Sample calendar · Dates and arrangements are to be confirmed.</p>
         </div>
         <div className="flex gap-3">
           <button type="button" onClick={() => move(-1)} disabled={position.atStart} aria-label="Previous events" aria-controls="academics-event-track" className={buttonClass}>←</button>
@@ -88,7 +87,7 @@ export default function EventsCarousel() {
               <div className="flex items-center justify-between gap-3 border-b border-[#44321b]/15 pb-6"><span className="text-[10px] tracking-[0.18em] uppercase">{event.category}</span><span aria-hidden="true" className="font-[Georgia,serif] text-4xl italic text-[#92774f]">0{index + 1}</span></div>
               <h3 className="mt-7 font-[Georgia,serif] text-3xl leading-tight">{event.title}</h3>
               <p className="mt-4 mb-8 text-sm leading-[1.9] text-[#44321b]/75">{event.description}</p>
-              <p className="mt-auto text-xs tracking-wide text-[#44321b]/65">{event.schedule ? `${event.schedule.day} ${event.schedule.month} · Provisional` : "Date to be announced"}</p>
+              <p className="mt-auto text-xs tracking-wide text-[#44321b]/65">{event.schedule ? `${event.schedule.day} ${event.schedule.month}` : "Date to be announced"}</p>
             </article>
           ))}
         </div>

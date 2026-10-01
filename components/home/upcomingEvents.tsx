@@ -56,7 +56,7 @@ export default function UpcomingEvents() {
   return (
     <section id="upcoming-events" aria-labelledby="upcoming-events-title" className="grid overflow-hidden bg-[#44321b] text-[#f8f6f0] lg:grid-cols-2">
       <div className="relative min-h-64 bg-[#d9dfd5] sm:min-h-[360px] lg:min-h-full">
-        <Image src="https://picsum.photos/seed/pen-events/1200/1400" alt="Upcoming events placeholder photograph" fill unoptimized sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+        <Image src="https://picsum.photos/seed/pen-events/1200/1400" alt="School events photograph" fill unoptimized sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
       </div>
 
       <div className="min-w-0 px-6 py-12 sm:px-12 sm:py-14 lg:px-16 lg:py-16 xl:px-20">

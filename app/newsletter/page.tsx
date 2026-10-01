@@ -25,7 +25,6 @@ export default function NewsletterPage() {
       <section aria-labelledby="blogs-title" className="content-container py-16 lg:py-20">
         <div className="flex flex-wrap items-end justify-between gap-5">
           <div><p className="mb-4 text-xs tracking-[0.22em] uppercase">From the journal</p><h2 id="blogs-title" className="font-[Georgia,serif] text-4xl tracking-tight sm:text-5xl">Stories worth <span className="italic">sharing.</span></h2></div>
-          <p className="max-w-sm text-sm leading-relaxed text-[#44321b]/65">Sample articles · A first look at our school journal.</p>
         </div>
         <ul className="mt-10 divide-y divide-[#44321b]/15 border-y border-[#44321b]/15">
           {schoolBlogs.map((blog, index) => (

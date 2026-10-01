@@ -12,7 +12,7 @@ export default function FounderDesk() {
           <div className="relative aspect-[4/5] overflow-hidden rounded-t-[160px] bg-[#e3ded1]">
             <svg
               role="img"
-              aria-label="Founder portrait placeholder"
+              aria-label="Founder illustration"
               viewBox="0 0 400 500"
               className="h-full w-full text-[#44321b]/25"
               fill="none"
@@ -21,7 +21,6 @@ export default function FounderDesk() {
               <path d="M62 500V418a138 138 0 0 1 276 0v82H62Z" fill="currentColor" />
               <path d="m155 292 45 68 45-68" stroke="#e3ded1" strokeWidth="4" />
             </svg>
-            <p className="absolute inset-x-0 bottom-6 text-center text-[10px] tracking-[0.2em] text-[#44321b]/70 uppercase">Founder portrait coming soon</p>
           </div>
         </figure>
 

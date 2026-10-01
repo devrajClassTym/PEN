@@ -15,7 +15,7 @@ const linkClass = "inline-flex min-h-12 items-center justify-center gap-8 rounde
 
 export default function AboutUs() {
   return (
-    <main id="top" className="flex-1 bg-[#f8f6f0] text-[#44321b]">
+    <main className="flex-1 bg-[#f8f6f0] text-[#44321b]">
       <section aria-labelledby="about-title" className="relative overflow-hidden px-5 pt-6 pb-16 sm:px-8 sm:pt-8 sm:pb-20 lg:px-10">
         <div className="mx-auto max-w-[1400px]">
           <Link href="/" aria-label="P.E.N Schools home" className="mx-auto flex w-fit rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#44321b]">
@@ -140,7 +140,7 @@ export default function AboutUs() {
           <h2 id="community-title" className={headingClass}>Get to know <span className="italic">P.E.N.</span></h2>
           <p className="mx-auto mt-6 max-w-xl text-base leading-[1.9] text-[#44321b]/75">Explore our school community, or start a conversation with us about your child’s learning journey.</p>
           <div className="mt-8 flex flex-col items-stretch justify-center gap-4 sm:flex-row sm:items-center">
-            <Link href="/#enquiry" className={`${linkClass} border-[#44321b] bg-[#44321b] text-[#f8f6f0] hover:bg-[#302416] focus-visible:outline-[#44321b]`}>Enquire now <span aria-hidden="true">↗</span></Link>
+            <Link href="/admission#enquiry" className={`${linkClass} border-[#44321b] bg-[#44321b] text-[#f8f6f0] hover:bg-[#302416] focus-visible:outline-[#44321b]`}>Enquire now <span aria-hidden="true">↗</span></Link>
             <Link href="/#campus" className={`${linkClass} border-[#44321b]/35 hover:bg-[#44321b] hover:text-white focus-visible:outline-[#44321b]`}>Explore our campuses <span aria-hidden="true">↗</span></Link>
           </div>
         </div>

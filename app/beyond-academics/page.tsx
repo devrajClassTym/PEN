@@ -30,7 +30,7 @@ export default function BeyondAcademics() {
       <section className="border-t border-[#44321b]/15 bg-[#eee8da] px-6 py-16 text-center" aria-labelledby="join-title">
         <p className="mb-5 text-sm tracking-[0.2em] uppercase">There is more to every child</p>
         <h2 id="join-title" className="font-[Georgia,'Times_New_Roman',serif] text-4xl leading-tight sm:text-5xl">Let them discover <span className="italic">what moves them.</span></h2>
-        <Link href="/#enquiry" className="mt-8 inline-flex min-h-12 items-center gap-8 rounded-full bg-[#44321b] px-7 py-3 text-base text-white transition-colors hover:bg-[#302416] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#44321b]">Start a conversation <span aria-hidden="true">↗</span></Link>
+        <Link href="/admission#enquiry" className="mt-8 inline-flex min-h-12 items-center gap-8 rounded-full bg-[#44321b] px-7 py-3 text-base text-white transition-colors hover:bg-[#302416] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#44321b]">Start a conversation <span aria-hidden="true">↗</span></Link>
       </section>
     </main>
   );

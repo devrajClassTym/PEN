@@ -30,7 +30,7 @@ export default function EnquiryForm() {
               return;
             }
             // Connect the admissions service before accepting enquiries.
-            setMessage("Your enquiry has not been sent. Online enquiries are not available yet; please contact the school directly.");
+            setMessage("Unable to send your enquiry. Please contact the school directly.");
           }}
         >
           <div className="grid items-end gap-4 sm:grid-cols-2 xl:grid-cols-[1fr_1fr_1fr_1fr_auto]">

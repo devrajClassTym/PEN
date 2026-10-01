@@ -69,7 +69,6 @@ const activities = [
 
 export default function ActivityTabs() {
   const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
 
   function selectTab(index: number) {
@@ -106,11 +105,8 @@ export default function ActivityTabs() {
                 <p className={styles.eyebrow}>{activity.kicker}</p>
                 <h2>{activity.heading} <span>{activity.accent}</span></h2>
                 <p className={styles.subtitle}>{activity.subtitle}</p>
-                <button type="button" className={styles.motionToggle} aria-pressed={paused} onClick={() => setPaused(!paused)}>
-                  {paused ? "Resume floating" : "Pause floating"}
-                </button>
               </div>
-              <div className={styles.collage} data-paused={paused} aria-label={`${activity.label} inspiration gallery`}>
+              <div className={styles.collage} aria-label={`${activity.label} inspiration gallery`}>
                 <div aria-hidden="true" className={styles.backdrop} style={{ backgroundColor: activity.theme }} />
                 {activity.photos.map((photo) => (
                   <figure key={photo.id} className={styles.photo}>

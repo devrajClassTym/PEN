@@ -10,11 +10,11 @@ export default function ApplicationForm({ jobId, jobTitle }: { jobId: string; jo
     <form aria-labelledby="application-title" aria-describedby="application-note" onSubmit={(event) => {
       event.preventDefault();
       // Connect recruitment service before accepting applications or uploading files.
-      setMessage("Your application has not been sent or saved. Online applications are not available yet.");
+      setMessage("Unable to submit your application. Your details and CV have not been saved.");
     }}>
       <h3 id="application-title" className="font-[Georgia,serif] text-3xl">Introduce yourself.</h3>
       <p className="mt-3 text-sm leading-relaxed text-[#44321b]/75">Applying for <span className="font-medium">{jobTitle}</span></p>
-      <p id="application-note" className="mt-3 text-xs leading-relaxed text-[#44321b]/65">Preview form. Applications and CVs are not sent or saved yet. Fields marked * are required.</p>
+      <p id="application-note" className="mt-3 text-xs leading-relaxed text-[#44321b]/65">Fields marked * are required.</p>
       <input type="hidden" name="jobId" value={jobId} />
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <label htmlFor="applicant-name" className="text-sm font-medium sm:col-span-2">Full name *<input id="applicant-name" name="name" autoComplete="name" required maxLength={100} pattern=".*\S.*" placeholder="Your full name" className={field} /></label>

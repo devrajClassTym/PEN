@@ -23,7 +23,6 @@ export default function AlumniPage() {
       <section aria-labelledby="alumni-grid-title" className="content-container py-16 lg:py-20">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div><p className="mb-4 text-xs tracking-[0.22em] uppercase">Once a part of P.E.N, always a part</p><h2 id="alumni-grid-title" className="font-[Georgia,serif] text-4xl tracking-tight sm:text-5xl">Meet our <span className="italic">alumni.</span></h2></div>
-          <p className="max-w-sm text-sm leading-relaxed text-[#44321b]/65">Sample profiles for preview. Names, batches, and career details are fictional.</p>
         </div>
         <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {schoolAlumni.map((alum) => (

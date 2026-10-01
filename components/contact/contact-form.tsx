@@ -7,12 +7,12 @@ export default function ContactForm() {
   const field = "mt-2 w-full rounded-lg border border-[#44321b]/25 bg-white px-4 py-3 text-base outline-none placeholder:text-[#44321b]/45 focus:border-[#44321b] focus:ring-2 focus:ring-[#b49a70]/30";
 
   return (
-    <form aria-label="Contact enquiry" aria-describedby="contact-demo" className="rounded-3xl border border-[#44321b]/15 bg-white/60 p-6 sm:p-9" onSubmit={(event) => {
+    <form aria-label="Contact enquiry" aria-describedby="contact-form-note" className="rounded-3xl border border-[#44321b]/15 bg-white/60 p-6 sm:p-9" onSubmit={(event) => {
       event.preventDefault();
-      setMessage("Demo only — your message has not been sent or saved. The contact service will be connected before launch.");
+      setMessage("Unable to send your message. Please contact the school directly.");
     }}>
       <h2 className="font-[Georgia,'Times_New_Roman',serif] text-3xl">Send us a message</h2>
-      <p id="contact-demo" className="mt-3 text-sm leading-relaxed text-[#44321b]/65">Demo form. Messages are not sent. Fields marked * are required.</p>
+      <p id="contact-form-note" className="mt-3 text-sm leading-relaxed text-[#44321b]/65">Fields marked * are required.</p>
       <div className="mt-7 grid gap-5 sm:grid-cols-2">
         <label className="text-sm font-medium" htmlFor="contact-name">Your name *<input id="contact-name" name="name" autoComplete="name" required pattern=".*\S.*" maxLength={100} placeholder="Full name" className={field} /></label>
         <label className="text-sm font-medium" htmlFor="contact-email">Email address *<input id="contact-email" name="email" type="email" autoComplete="email" required maxLength={254} placeholder="you@example.com" className={field} /></label>

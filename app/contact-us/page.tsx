@@ -28,7 +28,6 @@ export default function ContactUs() {
               <div><h3 className="mb-2 text-sm font-medium tracking-[0.12em] uppercase">Phone & email</h3><p className="text-[#44321b]/75">+91 00000 00000<br />hello@penschools.example</p></div>
             </address>
             <div className="mt-6"><h3 className="mb-2 text-sm font-medium tracking-[0.12em] uppercase">Visiting hours</h3><p className="text-base leading-[1.8] text-[#44321b]/75">Monday – Saturday<br />9:00 AM – 4:00 PM</p></div>
-            <p className="mt-6 text-sm leading-relaxed text-[#44321b]/60">Dummy contact details and hours. The map shows Visakhapatnam for illustration, not an actual campus location.</p>
           </div>
           <div className="min-w-0 overflow-hidden rounded-3xl border border-[#44321b]/15 bg-[#e8dfce]">
             <iframe title="Illustrative map of Visakhapatnam, not an actual school location" src="https://maps.google.com/maps?q=Visakhapatnam%2C%20Andhra%20Pradesh&t=&z=12&ie=UTF8&iwloc=&output=embed" width="800" height="560" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="h-[360px] w-full border-0 sm:h-[460px] lg:h-full lg:min-h-[560px]" />

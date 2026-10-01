@@ -28,7 +28,6 @@ export default function JobOpenings() {
     <section aria-labelledby="openings-title" className="content-container py-16 lg:py-20">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div><p className="mb-4 text-xs tracking-[0.22em] uppercase">Find your next chapter</p><h2 id="openings-title" className="font-[Georgia,serif] text-4xl tracking-tight sm:text-5xl">Explore our <span className="italic">openings.</span></h2></div>
-        <p className="max-w-sm text-sm leading-relaxed text-[#44321b]/65">Sample openings for preview. Actual vacancies and requirements will be confirmed by the school.</p>
       </div>
       <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {schoolJobs.map((job) => (
@@ -60,7 +59,6 @@ export default function JobOpenings() {
               <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-relaxed text-[#44321b]/80">{selected.responsibilities.map((item) => <li key={item}>{item}</li>)}</ul>
               <h3 className="mt-7 font-[Georgia,serif] text-2xl">What you’ll bring</h3>
               <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-relaxed text-[#44321b]/80">{selected.qualifications.map((item) => <li key={item}>{item}</li>)}</ul>
-              <p className="mt-7 border-t border-[#44321b]/15 pt-5 text-xs leading-relaxed text-[#44321b]/65">This is a sample role. Vacancy status, requirements, location, and employment terms are subject to confirmation by the school.</p>
             </div>
             <div className="min-w-0 p-6 sm:p-8 lg:p-10"><ApplicationForm key={selected.id} jobId={selected.id} jobTitle={selected.title} /></div>
           </div>

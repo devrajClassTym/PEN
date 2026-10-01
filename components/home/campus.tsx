@@ -144,7 +144,7 @@ export default function Campus() {
             {campuses.map((campus, index) => (
               <figure key={campus.name} role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${campuses.length}`} className="w-full shrink-0 snap-start">
                 <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden" style={{ backgroundColor: campus.color }}>
-                  <svg role="img" aria-label="Campus image placeholder" viewBox="0 0 400 300" className="h-full w-full text-[#44321b]/20" fill="none">
+                  <svg role="img" aria-label="Campus illustration" viewBox="0 0 400 300" className="h-full w-full text-[#44321b]/20" fill="none">
                     <circle cx="308" cy="66" r="28" fill="currentColor" opacity="0.3" />
                     <path d="M0 246Q100 207 200 246T400 246V300H0Z" fill="currentColor" opacity="0.2" />
                     <path d="M85 230V126H170V91H230V126H315V230M70 230H330M170 126V230M230 126V230M189 230V194H211V230M176 91L200 69L224 91" stroke="currentColor" strokeWidth="2" />
@@ -152,7 +152,6 @@ export default function Campus() {
                       <path key={x} d={`M${x} 147v16m0 15v16`} stroke="currentColor" strokeWidth="9" />
                     ))}
                   </svg>
-                  <span className="absolute bottom-5 left-5 text-[9px] tracking-[0.2em] text-[#44321b]/55 uppercase">Campus image coming soon</span>
                 </div>
                 <figcaption className="pt-6">
                   <h3 className="font-[Georgia,'Times_New_Roman',serif] text-2xl sm:text-3xl">{campus.name}</h3>

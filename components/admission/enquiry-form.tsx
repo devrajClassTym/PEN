@@ -12,10 +12,10 @@ export default function AdmissionEnquiry() {
     <form aria-label="Admission enquiry" aria-describedby="admission-form-note" className="border border-[#44321b]/15 bg-[#f8f6f0] p-6 sm:p-9" onSubmit={(event) => {
       event.preventDefault();
       // Connect an admissions service before accepting or storing enquiries.
-      setMessage("Your enquiry has not been sent or saved. Online enquiries are not available yet; please contact the school directly to continue.");
+      setMessage("Unable to send your enquiry. Please contact the school directly.");
     }}>
       <h3 className="font-[Georgia,serif] text-2xl">Let’s get to know you.</h3>
-      <p id="admission-form-note" className="mt-3 text-sm leading-relaxed text-[#44321b]/65">Online enquiries are not available yet. This form does not send or save your details. Fields marked * are required.</p>
+      <p id="admission-form-note" className="mt-3 text-sm leading-relaxed text-[#44321b]/65">Fields marked * are required.</p>
       <div className="mt-7 grid gap-5 sm:grid-cols-2">
         <label htmlFor="admission-child" className="text-sm font-medium sm:col-span-2">Child’s name *<input id="admission-child" name="childName" autoComplete="section-child name" required maxLength={100} pattern=".*\S.*" placeholder="Child’s full name" className={field} /></label>
         <label htmlFor="admission-parent" className="text-sm font-medium">Parent / guardian name *<input id="admission-parent" name="parentName" autoComplete="name" required maxLength={100} pattern=".*\S.*" placeholder="Your full name" className={field} /></label>

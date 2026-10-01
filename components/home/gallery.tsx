@@ -5,7 +5,7 @@ import styles from "./gallery.module.css";
 // Temporary photographs until school gallery images are available.
 const images = Array.from({ length: 8 }, (_, index) => ({
   src: `https://picsum.photos/seed/pen-gallery-${index + 1}/800/600`,
-  alt: `Gallery placeholder photograph ${index + 1}`,
+  alt: `Gallery photograph ${index + 1}`,
 }));
 
 export default function Gallery() {

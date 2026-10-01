@@ -32,13 +32,12 @@ export default function EventsGrid() {
         </div>
         <span className="rounded-full border border-[#44321b]/20 px-5 py-2 text-sm">{schoolEvents.length} events to explore</span>
       </div>
-      <p className="mt-6 text-xs leading-relaxed text-[#44321b]/65">Sample calendar · Events, dates, and arrangements are provisional. Please confirm with the school before planning a visit.</p>
       <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {schoolEvents.map((event, index) => (
           <li key={event.id} className="min-w-0">
             <button type="button" aria-haspopup="dialog" aria-controls="school-event-dialog" aria-label={`View details for ${event.title}`} onClick={(click) => { trigger.current = click.currentTarget; setSelected(event); }} className="group flex h-full w-full cursor-pointer flex-col border border-[#44321b]/15 bg-[#eee8da]/50 p-7 text-left transition-colors hover:border-[#92774f] hover:bg-[#eee8da] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#44321b] sm:p-8">
               <span className="flex w-full items-center justify-between gap-4 border-b border-[#44321b]/15 pb-6"><span className="text-[10px] tracking-[0.18em] uppercase">{event.category}</span><span aria-hidden="true" className="font-[Georgia,serif] text-4xl italic text-[#92774f]">{String(index + 1).padStart(2, "0")}</span></span>
-              <span className="mt-6 text-xs tracking-wide text-[#44321b]/65">{event.schedule ? <time dateTime={event.schedule.date}>{event.schedule.day} {event.schedule.month} · Provisional</time> : "Date to be announced"}</span>
+              <span className="mt-6 text-xs tracking-wide text-[#44321b]/65">{event.schedule ? <time dateTime={event.schedule.date}>{event.schedule.day} {event.schedule.month}</time> : "Date to be announced"}</span>
               <span className="mt-4 font-[Georgia,serif] text-3xl leading-tight">{event.title}</span>
               <span className="mt-4 mb-8 text-sm leading-[1.9] text-[#44321b]/75">{event.description}</span>
               <span className="mt-auto flex w-full items-center justify-between gap-4 border-t border-[#44321b]/15 pt-5 text-sm font-medium">View event details <span aria-hidden="true" className="flex h-8 w-8 items-center justify-center rounded-full border border-[#44321b]/25 transition-colors group-hover:bg-[#44321b] group-hover:text-white">↗</span></span>
@@ -53,13 +52,12 @@ export default function EventsGrid() {
           <h2 id="event-detail-title" className="mt-7 font-[Georgia,serif] text-3xl leading-tight tracking-tight sm:text-4xl">{selected.title}</h2>
           <p id="event-detail-description" className="mt-5 text-base leading-[1.9] text-[#44321b]/80">{selected.description}</p>
           <dl className="my-7 grid gap-6 border-y border-[#44321b]/15 py-6 sm:grid-cols-2">
-            <div><dt className="text-xs tracking-wider uppercase">Date</dt><dd className="mt-2 text-sm">{selected.schedule ? <time dateTime={selected.schedule.date}>{selected.schedule.day} {selected.schedule.month} (provisional)</time> : "To be announced"}</dd></div>
+            <div><dt className="text-xs tracking-wider uppercase">Date</dt><dd className="mt-2 text-sm">{selected.schedule ? <time dateTime={selected.schedule.date}>{selected.schedule.day} {selected.schedule.month}</time> : "To be announced"}</dd></div>
             <div><dt className="text-xs tracking-wider uppercase">Time</dt><dd className="mt-2 text-sm">{selected.schedule?.time ?? "To be announced"}</dd></div>
             <div className="sm:col-span-2"><dt className="text-xs tracking-wider uppercase">Venue</dt><dd className="mt-2 text-sm">Campus and venue to be confirmed by the school.</dd></div>
           </dl>
           <h3 className="font-[Georgia,serif] text-2xl">About this event</h3>
           <p className="mt-3 text-sm leading-[1.9] text-[#44321b]/75">{selected.details}</p>
-          <p className="mt-5 text-xs leading-relaxed text-[#44321b]/65">This is a proposed event. Please confirm all details with the school before attending.</p>
         </div>}
       </dialog>
     </section>

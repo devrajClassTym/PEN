@@ -16,7 +16,7 @@ const steps = [
 ];
 
 const faqs = [
-  { question: "How do I begin the admission process?", answer: "Start with an enquiry about the class you’re interested in, then arrange a campus visit with the school team. They will guide you through the documents and steps needed to complete admission. While online enquiries are unavailable, please contact the school directly." },
+  { question: "How do I begin the admission process?", answer: "Start with an enquiry about the class you’re interested in, then arrange a campus visit with the school team. They will guide you through the documents and steps needed to complete admission." },
   { question: "Can we visit the campus before applying?", answer: "Please contact the school to arrange a suitable time for your visit. It’s an opportunity to explore the campus, discuss your child’s needs, and ask questions about school life." },
   { question: "Which documents should I prepare?", answer: "The school will provide the document checklist for your child’s class. Documents commonly requested by schools include a birth certificate, recent photographs, previous school reports, and a transfer certificate where applicable. Confirm the exact requirements with the admissions team before submitting anything." },
   { question: "How can I check class availability and age requirements?", answer: "Share the class you’re interested in with the admissions team. They can confirm current seat availability, age eligibility, and any class-specific requirements." },

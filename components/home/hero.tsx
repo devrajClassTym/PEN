@@ -9,7 +9,7 @@ type HeroProps = {
 export default function Hero({
   videoSrc = "https://assets.mixkit.co/videos/28320/28320-720.mp4",
   posterSrc,
-  enquiryHref,
+  enquiryHref = "/admission#enquiry",
 }: HeroProps) {
   const enquiryClassName =
     "inline-flex min-h-12 items-center justify-center gap-4 rounded-full border border-white/70 px-7 py-3 text-sm font-medium text-white transition-colors hover:bg-white hover:text-[#44321b] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white";
@@ -58,20 +58,9 @@ export default function Hero({
             as much as in marks.
           </p>
           <div className="mt-9 sm:mt-10">
-            {enquiryHref ? (
-              <a href={enquiryHref} className={enquiryClassName}>
-                Enquire now <span aria-hidden="true">↗</span>
-              </a>
-            ) : (
-              <button
-                type="button"
-                disabled
-                title="Enquiries will be available soon"
-                className={`${enquiryClassName} disabled:cursor-not-allowed`}
-              >
-                Enquire now <span aria-hidden="true">↗</span>
-              </button>
-            )}
+            <a href={enquiryHref} className={enquiryClassName}>
+              Enquire now <span aria-hidden="true">↗</span>
+            </a>
           </div>
         </div>
       </div>
