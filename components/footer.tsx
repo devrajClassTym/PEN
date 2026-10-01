@@ -3,6 +3,7 @@ import Link from "next/link";
 
 const links = [
   { label: "About us", href: "/about-us" },
+  { label: "Admission", href: "/admission" },
   { label: "Beyond academics", href: "/beyond-academics" },
   { label: "Gallery", href: "/gallery" },
   { label: "Contact us", href: "/contact-us" },
@@ -17,8 +18,8 @@ const links = [
 export default function Footer() {
   const linkClass = "transition-colors hover:text-[#d9c6a5] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d9c6a5]";
   return (
-    <footer className="bg-[#302416] px-4 pt-12 pb-6 text-[#f8f6f0] sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-[1400px]">
+    <footer className="bg-[#302416] pt-12 pb-6 text-[#f8f6f0]">
+      <div className="content-container">
         <div className="flex flex-col gap-5 border-b border-[#d9c6a5]/20 pb-9 sm:flex-row sm:items-center sm:justify-between">
           <p className="max-w-lg font-[Georgia,'Times_New_Roman',serif] text-3xl leading-tight sm:text-4xl">Growing minds.<br /><span className="italic text-[#d9c6a5]">Building tomorrow.</span></p>
           <Link href="/#enquiry" className="inline-flex min-h-12 items-center justify-center gap-8 self-start rounded-full border border-[#d9c6a5]/40 px-6 text-sm transition-colors hover:bg-[#d9c6a5] hover:text-[#302416] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d9c6a5] sm:self-center">Let’s talk admissions <span aria-hidden="true">↗</span></Link>

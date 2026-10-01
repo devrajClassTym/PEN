@@ -1,0 +1,31 @@
+.track {
+  scrollbar-width: none;
+  cursor: grab;
+  user-select: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.track[data-dragging] {
+  cursor: grabbing;
+  scroll-snap-type: none;
+}
+
+.card {
+  width: 100%;
+  min-width: 0;
+}
+
+@media (min-width: 640px) {
+  .card {
+    width: calc((100% - 24px) / 2);
+  }
+}
+
+@media (min-width: 1024px) {
+  .card {
+    width: calc((100% - 48px) / 3);
+  }
+}
