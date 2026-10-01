@@ -7,7 +7,7 @@ type HeroProps = {
 };
 
 export default function Hero({
-  videoSrc = "https://assets.mixkit.co/videos/28320/28320-720.mp4",
+  videoSrc = "https://assets.mixkit.co/videos/21589/21589-720.mp4",
   posterSrc,
   enquiryHref = "/admission#enquiry",
 }: HeroProps) {
@@ -23,8 +23,8 @@ export default function Hero({
             className="bg-[#f5f1e6] shadow-lg ring-4 ring-white/15"
           />
         </div>
-        {/* Temporary school footage from Mixkit (Stock Video Free License):
-            https://mixkit.co/free-stock-video/students-boy-and-girl-walking-and-talking-around-the-school-28320/ */}
+        {/* Empty school-library footage from Mixkit (Stock Video Free License):
+          https://mixkit.co/free-stock-video/walking-down-a-library-corridor-with-tables-and-bookcases-21589/ */}
         <video
           className="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover motion-reduce:hidden"
           src={videoSrc}
