@@ -14,7 +14,7 @@ export default function EnquiryForm() {
       <div className="mx-auto max-w-[1200px]">
         <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
           <div>
-            <p className="mb-3 text-[10px] font-medium tracking-[0.25em] uppercase">Admissions enquiry</p>
+            <p className="mb-3 text-[10px] font-medium tracking-[0.25em] uppercase">ADMISSIONS — VISAKHAPATNAM </p>
             <h2 id="enquiry-title" className="font-[Georgia,'Times_New_Roman',serif] text-[clamp(2rem,3vw,2.75rem)] leading-[1.1] tracking-[-0.04em]">A bright start <span className="italic">begins here.</span></h2>
           </div>
           <p className="max-w-xs text-sm leading-relaxed text-[#44321b]/65">Tell us a little about your family and the class you’re interested in.</p>

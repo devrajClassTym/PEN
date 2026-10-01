@@ -2,10 +2,33 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./gallery.module.css";
 
-// Temporary photographs until school gallery images are available.
-const images = Array.from({ length: 8 }, (_, index) => ({
-  src: `https://picsum.photos/seed/pen-gallery-${index + 1}/800/600`,
-  alt: `Gallery photograph ${index + 1}`,
+const images = [
+  "image.png",
+  "image2.png",
+  "image3.png",
+  "image4.png",
+  "image5.png",
+  "image6.jpeg",
+  "image7.png",
+  "image8.png",
+  "image9.png",
+  "image10.png",
+  "image copy.png",
+  "image copy 2.png",
+  "image copy 3.png",
+  "image copy 4.png",
+  "image copy 5.png",
+  "image copy 6.png",
+  "image copy 7.png",
+  "image copy 8.png",
+  "image copy 9.png",
+  "image copy 10.png",
+  "image copy 11.png",
+  "image copy 12.png",
+  "image copy 13.png",
+].map((filename, index) => ({
+  src: `/images/gallery/${filename}`,
+  alt: `P.E.N. school life photograph ${index + 1}`,
 }));
 
 export default function Gallery() {
@@ -18,7 +41,7 @@ export default function Gallery() {
       <div className="w-full">
         <div className="mb-10 text-center">
           <p className="mb-4 text-[11px] font-medium tracking-[0.25em] uppercase">
-            Gallery
+            GALLERY
           </p>
           <h2
             id="gallery-title"
@@ -36,15 +59,18 @@ export default function Gallery() {
         >
           <div className={styles.track}>
             {[0, 1].map((copy) => (
-              <div key={copy} className={styles.group} aria-hidden={copy === 1 ? true : undefined}>
+              <div
+                key={copy}
+                className={styles.group}
+                aria-hidden={copy === 1 ? true : undefined}
+              >
                 {images.map(({ src, alt }) => (
                   <div key={src} className={styles.frame}>
                     <Image
                       src={src}
                       alt={copy === 0 ? alt : ""}
-                      width={800}
-                      height={600}
-                      unoptimized
+                      width={1200}
+                      height={900}
                       className="h-full w-full object-cover"
                     />
                   </div>

@@ -8,20 +8,30 @@ export const metadata: Metadata = {
   description: "A glimpse of life at P.E.N Schools — learning, creativity, sport, and shared moments.",
 };
 
-// Illustrative stock photographs; replace with approved school gallery images.
 const photos = [
-  { id: "photo-1719159381916-062fa9f435a6", alt: "Students studying together in a classroom", tall: true },
-  { id: "photo-1546519638-68e109498ffc", alt: "Basketball players on an indoor court", tall: false },
-  { id: "photo-1513364776144-60967b0f800f", alt: "Colourful paints and brushes for an art project", tall: true },
-  { id: "photo-1461896836934-ffe607ba8211", alt: "Athletes racing on a running track", tall: false },
-  { id: "photo-1587654780291-39c9404d746b", alt: "Colourful construction blocks for creative play", tall: false },
-  { id: "photo-1511379938547-c1f69419868d", alt: "Musical instruments in a rehearsal space", tall: true },
-  { id: "photo-1574629810360-7efbbe195018", alt: "Football resting on a grass pitch", tall: true },
-  { id: "photo-1522071820081-009f0129c71c", alt: "A group collaborating around a table", tall: false },
-  { id: "photo-1441974231531-c6227db76b6e", alt: "Sunlight streaming through a forest", tall: true },
-  { id: "photo-1530549387789-4c1017266635", alt: "Swimmer moving through a pool", tall: false },
-  { id: "photo-1523580494863-6f3031224c94", alt: "People gathering to celebrate an educational milestone", tall: true },
-  { id: "photo-1531415074968-036ba1b575da", alt: "A cricket ground during a match", tall: false },
+  { filename: "image.png", alt: "P.E.N. school life photograph 1", tall: true },
+  { filename: "image2.png", alt: "P.E.N. school life photograph 2", tall: false },
+  { filename: "image3.png", alt: "P.E.N. school life photograph 3", tall: true },
+  { filename: "image4.png", alt: "P.E.N. school life photograph 4", tall: false },
+  { filename: "image5.png", alt: "P.E.N. school life photograph 5", tall: false },
+  { filename: "image6.jpeg", alt: "P.E.N. school life photograph 6", tall: true },
+  { filename: "image7.png", alt: "P.E.N. school life photograph 7", tall: true },
+  { filename: "image8.png", alt: "P.E.N. school life photograph 8", tall: false },
+  { filename: "image9.png", alt: "P.E.N. school life photograph 9", tall: true },
+  { filename: "image10.png", alt: "P.E.N. school life photograph 10", tall: false },
+  { filename: "image copy.png", alt: "P.E.N. school life photograph 11", tall: true },
+  { filename: "image copy 2.png", alt: "P.E.N. school life photograph 12", tall: false },
+  { filename: "image copy 3.png", alt: "P.E.N. school life photograph 13", tall: true },
+  { filename: "image copy 4.png", alt: "P.E.N. school life photograph 14", tall: false },
+  { filename: "image copy 5.png", alt: "P.E.N. school life photograph 15", tall: true },
+  { filename: "image copy 6.png", alt: "P.E.N. school life photograph 16", tall: false },
+  { filename: "image copy 7.png", alt: "P.E.N. school life photograph 17", tall: true },
+  { filename: "image copy 8.png", alt: "P.E.N. school life photograph 18", tall: false },
+  { filename: "image copy 9.png", alt: "P.E.N. school life photograph 19", tall: true },
+  { filename: "image copy 10.png", alt: "P.E.N. school life photograph 20", tall: false },
+  { filename: "image copy 11.png", alt: "P.E.N. school life photograph 21", tall: true },
+  { filename: "image copy 12.png", alt: "P.E.N. school life photograph 22", tall: false },
+  { filename: "image copy 13.png", alt: "P.E.N. school life photograph 23", tall: true },
 ];
 
 export default function GalleryPage() {
@@ -41,12 +51,11 @@ export default function GalleryPage() {
       <section aria-label="Photo gallery" className="mx-auto max-w-[1600px] px-4 pb-16 sm:px-6 sm:pb-20 lg:px-10">
         <div className="columns-1 gap-4 sm:columns-2 sm:gap-5 lg:columns-3">
           {photos.map((photo, index) => (
-            <figure key={photo.id} className={`relative mb-4 break-inside-avoid overflow-hidden rounded-2xl bg-[#e8dfce] sm:mb-5 ${photo.tall ? "aspect-[4/5]" : "aspect-[4/3]"}`}>
+            <figure key={photo.filename} className={`relative mb-4 break-inside-avoid overflow-hidden rounded-2xl bg-[#e8dfce] sm:mb-5 ${photo.tall ? "aspect-[4/5]" : "aspect-[4/3]"}`}>
               <Image
-                src={`https://images.unsplash.com/${photo.id}?auto=format&fit=crop&w=1200&q=85`}
+                src={`/images/gallery/${photo.filename}`}
                 alt={photo.alt}
                 fill
-                unoptimized
                 loading={index < 3 ? "eager" : "lazy"}
                 sizes="(min-width: 1600px) 493px, (min-width: 1024px) 32vw, (min-width: 640px) 48vw, 94vw"
                 className="object-cover transition-transform duration-700 hover:scale-[1.035] motion-reduce:transform-none motion-reduce:transition-none"

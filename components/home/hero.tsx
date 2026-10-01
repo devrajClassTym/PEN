@@ -18,7 +18,10 @@ export default function Hero({
     <section aria-labelledby="hero-title" className="bg-white">
       <div className="relative isolate flex min-h-dvh items-center justify-center overflow-hidden bg-[#44321b] px-6 pt-48 pb-20 sm:pt-56 sm:pb-24 text-center text-white sm:px-12">
         <div className="absolute inset-x-0 top-6 flex justify-center sm:top-8">
-          <SchoolLogo alt="Pereira English Noble School — established 1983" className="bg-[#f5f1e6] shadow-lg ring-4 ring-white/15" />
+          <SchoolLogo
+            alt="Pereira English Noble School — established 1983"
+            className="bg-[#f5f1e6] shadow-lg ring-4 ring-white/15"
+          />
         </div>
         {/* Temporary school footage from Mixkit (Stock Video Free License):
             https://mixkit.co/free-stock-video/students-boy-and-girl-walking-and-talking-around-the-school-28320/ */}
@@ -42,28 +45,28 @@ export default function Hero({
         />
         <div className="mx-auto flex w-full max-w-5xl flex-col items-center">
           <p className="mb-7 font-sans text-[10px] font-medium uppercase tracking-[0.22em] text-white/90 sm:text-xs sm:tracking-[0.3em]">
-            P.E.N Schools, Vizag — since 1983
+            P.E.N. SCHOOLS, VISAKHAPATNAM — SINCE 1983
           </p>
           <h1
             id="hero-title"
             className="text-balance font-[Georgia,'Times_New_Roman',serif] text-[clamp(2.7rem,6.8vw,6.5rem)] leading-[1.08] font-normal tracking-[-0.045em]"
           >
-            Beyond a School —
+            More Than a School
             <br />
-            <span className="italic">A Way of Life</span>
+            <span className="italic">A Way of Growing</span>
           </h1>
           <p className="mt-8 max-w-[39rem] text-pretty font-sans text-sm leading-[1.9] font-normal text-white/90 sm:mt-10 sm:text-base lg:text-lg">
-            For over four decades, P.E.N has shaped young minds with the same
-            quiet conviction: that a child&apos;s growth is measured in character
-            as much as in marks.
+            For over four decades, P.E.N. Schools has been a place where
+            children learn beyond the classroom — building knowledge, character,
+            confidence and curiosity along the way.
           </p>
           <div className="mt-9 sm:mt-10">
             <a href={enquiryHref} className={enquiryClassName}>
-              Enquire now <span aria-hidden="true">↗</span>
+              Admissions Enquiry <span aria-hidden="true">↗</span>
             </a>
           </div>
         </div>
       </div>
-    </section> 
+    </section>
   );
 }
