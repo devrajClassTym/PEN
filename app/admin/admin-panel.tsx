@@ -20,6 +20,17 @@ const galleryFiles = [
 ];
 const inputClass = "mt-2 w-full rounded-xl border border-[#44321b]/20 bg-white px-4 py-3 outline-none focus:border-[#44321b] focus:ring-2 focus:ring-[#44321b]/15";
 const textareaClass = `${inputClass} min-h-28 resize-y leading-6`;
+type ApiResult = { error?: string };
+
+async function readApiResult(response: Response): Promise<ApiResult | null> {
+  const body = await response.text();
+  if (!body) return null;
+  try {
+    return JSON.parse(body) as ApiResult;
+  } catch {
+    return { error: body };
+  }
+}
 
 function VisibilityToggle({ visible, onToggle, label }: { visible: boolean; onToggle: () => void; label: string }) {
   return (
@@ -41,6 +52,7 @@ function createUniqueKey(value: string, currentKeys: string[]) {
 
 export default function AdminPanel() {
   const [authenticated, setAuthenticated] = useState(false);
+  const [authReady, setAuthReady] = useState(false);
   const [activeTab, setActiveTab] = useState<Tab>("Events");
   const [error, setError] = useState("");
   const [events, setEvents] = useState<SchoolEvent[]>([]);
@@ -54,6 +66,28 @@ export default function AdminPanel() {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
+    let current = true;
+    fetch("/api/admin/session", { cache: "no-store" })
+      .then((response) => {
+        if (!current) return;
+        if (response.ok) {
+          localStorage.setItem("isLoggedIn", "true");
+          setLoadingContent(true);
+          setAuthenticated(true);
+        } else {
+          localStorage.removeItem("isLoggedIn");
+        }
+      })
+      .catch(() => {
+        if (current) localStorage.removeItem("isLoggedIn");
+      })
+      .finally(() => {
+        if (current) setAuthReady(true);
+      });
+    return () => { current = false; };
+  }, []);
+
+  useEffect(() => {
     const dialog = dialogRef.current;
     if (!editor || !dialog) return;
     dialog.showModal();
@@ -65,8 +99,10 @@ export default function AdminPanel() {
     let current = true;
     const load = async (kind: "events" | "blogs") => {
       const response = await fetch(`/api/${kind}`, { cache: "no-store" });
-      if (!response.ok) throw new Error("Could not load the event and blog records.");
-      return response.json();
+      const result = await readApiResult(response);
+      if (!response.ok) throw new Error(result?.error ?? "Could not load the event and blog records.");
+      if (!Array.isArray(result)) throw new Error(`The ${kind} response was not a JSON array.`);
+      return result;
     };
     Promise.all([
       load("events"),
@@ -87,27 +123,54 @@ export default function AdminPanel() {
     return () => { current = false; };
   }, [authenticated]);
 
-  async function saveCollection(kind: "events" | "blogs", records: SchoolEvent[] | SchoolBlog[]) {
+  async function saveRecord(kind: "events" | "blogs", method: "POST" | "PATCH", record: SchoolEvent | SchoolBlog) {
     setSavingContent(true);
     setError("");
     setContentStatus("");
     try {
       const response = await fetch(`/api/${kind}`, {
-        method: "PUT",
+        method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(records),
+        body: JSON.stringify(record),
       });
+      const result = await readApiResult(response);
       if (!response.ok) {
-        const result = await response.json();
-        throw new Error(result.error ?? "Could not save the records.");
+        throw new Error(result?.error ?? `Save failed with status ${response.status}.`);
       }
-      if (kind === "events") setEvents(records as SchoolEvent[]);
-      else setBlogs(records as SchoolBlog[]);
-      setContentStatus(`${kind === "events" ? "Events" : "Blogs"} saved.`);
+      if (kind === "events") {
+        const event = record as SchoolEvent;
+        setEvents((current) => method === "POST" ? [...current, event] : current.map((item) => item.id === event.id ? event : item));
+      } else {
+        const blog = record as SchoolBlog;
+        setBlogs((current) => method === "POST" ? [...current, blog] : current.map((item) => item.slug === blog.slug ? blog : item));
+      }
+      setContentStatus(`${kind === "events" ? "Event" : "Blog"} saved.`);
       return true;
     } catch (saveError) {
       setError(saveError instanceof Error ? saveError.message : "Could not save the records.");
       return false;
+    } finally {
+      setSavingContent(false);
+    }
+  }
+
+  async function deleteRecord(kind: "events" | "blogs", key: string) {
+    setSavingContent(true);
+    setError("");
+    setContentStatus("");
+    try {
+      const response = await fetch(`/api/${kind}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(kind === "events" ? { id: key } : { slug: key }),
+      });
+      const result = await readApiResult(response);
+      if (!response.ok) throw new Error(result?.error ?? `Delete failed with status ${response.status}.`);
+      if (kind === "events") setEvents((current) => current.filter((event) => event.id !== key));
+      else setBlogs((current) => current.filter((blog) => blog.slug !== key));
+      setContentStatus(`${kind === "events" ? "Event" : "Blog"} deleted.`);
+    } catch (deleteError) {
+      setError(deleteError instanceof Error ? deleteError.message : "Could not delete the record.");
     } finally {
       setSavingContent(false);
     }
@@ -138,10 +201,7 @@ export default function AdminPanel() {
       details: String(form.get("details")).trim(),
       ...(hasSchedule ? { schedule: scheduleValues } : {}),
     };
-    const next = editor.mode === "edit"
-      ? events.map((item) => item.id === editor.key ? record : item)
-      : [...events, record];
-    if (await saveCollection("events", next)) setEditor(null);
+    if (await saveRecord("events", editor.mode === "add" ? "POST" : "PATCH", record)) setEditor(null);
   }
 
   async function submitBlog(event: FormEvent<HTMLFormElement>) {
@@ -157,41 +217,50 @@ export default function AdminPanel() {
       excerpt: String(form.get("excerpt")).trim(),
       paragraphs: String(form.get("paragraphs")).split(/\n\s*\n/).map((paragraph) => paragraph.trim()).filter(Boolean),
     };
-    const next = editor.mode === "edit"
-      ? blogs.map((item) => item.slug === editor.key ? record : item)
-      : [...blogs, record];
-    if (await saveCollection("blogs", next)) setEditor(null);
+    if (await saveRecord("blogs", editor.mode === "add" ? "POST" : "PATCH", record)) setEditor(null);
   }
 
   async function deleteEvent(id: string) {
     if (!window.confirm("Delete this event?")) return;
-    await saveCollection("events", events.filter((event) => event.id !== id));
+    await deleteRecord("events", id);
   }
 
   async function deleteBlog(slug: string) {
     if (!window.confirm("Delete this blog?")) return;
-    await saveCollection("blogs", blogs.filter((blog) => blog.slug !== slug));
+    await deleteRecord("blogs", slug);
   }
 
-  function login(event: FormEvent<HTMLFormElement>) {
+  async function login(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
     const data = new FormData(form);
-    const email = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
-    const password = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
-    const secret = process.env.NEXT_PUBLIC_ADMIN_SECRET;
-    if (!email || !password || !secret) {
-      setError("Admin login is not configured. Please check the environment settings.");
-      return;
-    }
-    if (String(data.get("email")).trim() !== email || data.get("password") !== password || data.get("secret") !== secret) {
-      setError("The email, password, or secret key is incorrect. Please try again.");
-      return;
-    }
-    form.reset();
     setError("");
-    setLoadingContent(true);
-    setAuthenticated(true);
+    try {
+      const response = await fetch("/api/admin/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: data.get("email"), password: data.get("password"), secret: data.get("secret") }),
+      });
+      const result = await readApiResult(response);
+      if (!response.ok) throw new Error(result?.error ?? `Login failed with status ${response.status}.`);
+      localStorage.setItem("isLoggedIn", "true");
+      form.reset();
+      setLoadingContent(true);
+      setAuthReady(true);
+      setAuthenticated(true);
+    } catch (loginError) {
+      setError(loginError instanceof Error ? loginError.message : "Could not log in.");
+    }
+  }
+
+  async function logout() {
+    try {
+      await fetch("/api/admin/session", { method: "DELETE" });
+    } finally {
+      localStorage.removeItem("isLoggedIn");
+      setAuthenticated(false);
+      setActiveTab("Events");
+    }
   }
 
   function navigateTabs(event: KeyboardEvent<HTMLButtonElement>, index: number) {
@@ -211,7 +280,9 @@ export default function AdminPanel() {
       <Link href="/" aria-label="P.E.N Schools home" className="mx-auto mb-8 flex w-fit rounded-full focus-visible:outline-2 focus-visible:outline-offset-4">
         <SchoolLogo />
       </Link>
-      {!authenticated ? (
+      {!authReady ? (
+        <section className="mx-auto max-w-md rounded-3xl border border-[#44321b]/10 bg-white p-6 text-sm text-[#44321b]/70 sm:p-9" role="status">Checking admin session…</section>
+      ) : !authenticated ? (
         <section className="mx-auto max-w-md rounded-3xl border border-[#44321b]/10 bg-white p-6 shadow-sm sm:p-9" aria-labelledby="login-heading">
           <p className="text-xs font-semibold tracking-[0.2em] uppercase">P.E.N Schools</p>
           <h1 id="login-heading" className="mt-3 font-serif text-4xl">Admin login</h1>
@@ -234,7 +305,7 @@ export default function AdminPanel() {
         <section className="mx-auto max-w-6xl" aria-labelledby="dashboard-heading">
           <header className="mb-8 flex flex-wrap items-center justify-between gap-4">
             <div><p className="text-xs font-semibold tracking-[0.2em] uppercase">Administration</p><h1 id="dashboard-heading" className="mt-2 font-serif text-4xl sm:text-5xl">School dashboard</h1></div>
-            <button type="button" onClick={() => { setAuthenticated(false); setActiveTab("Events"); }} className="rounded-full border border-[#44321b]/25 px-5 py-2.5 text-sm font-medium hover:bg-[#44321b]/5">Log out</button>
+            <button type="button" onClick={() => void logout()} className="rounded-full border border-[#44321b]/25 px-5 py-2.5 text-sm font-medium hover:bg-[#44321b]/5">Log out</button>
           </header>
           <div role="tablist" aria-label="Admin sections" className="mb-6 flex gap-2 border-b border-[#44321b]/15 pb-3">
             {tabs.map((tab, index) => (

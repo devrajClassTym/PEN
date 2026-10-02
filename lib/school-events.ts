@@ -1,5 +1,6 @@
-import { readFile } from "node:fs/promises";
 import path from "node:path";
+import defaultEvents from "@/data/events.json";
+import { readJsonCollection, writeJsonCollection } from "@/lib/content-storage";
 
 export type SchoolEvent = {
   id: string;
@@ -12,5 +13,10 @@ export type SchoolEvent = {
 
 export async function getSchoolEvents(): Promise<SchoolEvent[]> {
   const filePath = path.join(process.cwd(), "data", "events.json");
-  return JSON.parse(await readFile(filePath, "utf8")) as SchoolEvent[];
+  return readJsonCollection("content/events.json", filePath, defaultEvents as SchoolEvent[]);
+}
+
+export async function saveSchoolEvents(events: SchoolEvent[]) {
+  const filePath = path.join(process.cwd(), "data", "events.json");
+  return writeJsonCollection("content/events.json", filePath, events);
 }

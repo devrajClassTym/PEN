@@ -5,10 +5,10 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { SchoolEvent } from "@/lib/school-events";
 
-export default function UpcomingEvents({ events: schoolEvents }: { events: SchoolEvent[] }) {
+export default function UpcomingEvents({ events: schoolEvents = [] }: { events?: SchoolEvent[] }) {
   const events = useMemo(
-    () => schoolEvents.flatMap((event) =>
-      event.schedule
+    () => (Array.isArray(schoolEvents) ? schoolEvents : []).flatMap((event) =>
+      event?.schedule
         ? [{ ...event.schedule, name: event.title, description: event.description }]
         : [],
     ),
