@@ -2,17 +2,18 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { SchoolEvent } from "@/lib/school-events";
 
-import { schoolEvents } from "@/lib/school-events";
-
-const events = schoolEvents.flatMap((event) =>
-  event.schedule
-    ? [{ ...event.schedule, name: event.title, description: event.description }]
-    : [],
-);
-
-export default function UpcomingEvents() {
+export default function UpcomingEvents({ events: schoolEvents }: { events: SchoolEvent[] }) {
+  const events = useMemo(
+    () => schoolEvents.flatMap((event) =>
+      event.schedule
+        ? [{ ...event.schedule, name: event.title, description: event.description }]
+        : [],
+    ),
+    [schoolEvents],
+  );
   const [activeIndex, setActiveIndex] = useState(0);
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
@@ -21,9 +22,10 @@ export default function UpcomingEvents() {
   const pointerStart = useRef<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
+    if (events.length === 0) return;
     elapsedRef.current = 0;
     if (progressRef.current) progressRef.current.style.transform = "scaleX(0)";
-  }, [activeIndex]);
+  }, [activeIndex, events]);
 
   useEffect(() => {
     if (hovered || focused) return;
@@ -50,11 +52,11 @@ export default function UpcomingEvents() {
 
     frame = window.requestAnimationFrame(tick);
     return () => window.cancelAnimationFrame(frame);
-  }, [hovered, focused, activeIndex]);
+  }, [hovered, focused, activeIndex, events]);
 
   function move(direction: number) {
     setActiveIndex(
-      (index) => (index + direction + events.length) % events.length,
+      (index) => events.length ? (index + direction + events.length) % events.length : 0,
     );
   }
 
@@ -208,6 +210,7 @@ export default function UpcomingEvents() {
                 aria-label="Previous event"
                 aria-controls="events-slider"
                 className={buttonClass}
+                disabled={events.length === 0}
               >
                 <span aria-hidden="true">←</span>
               </button>
@@ -217,6 +220,7 @@ export default function UpcomingEvents() {
                 aria-label="Next event"
                 aria-controls="events-slider"
                 className={buttonClass}
+                disabled={events.length === 0}
               >
                 <span aria-hidden="true">→</span>
               </button>

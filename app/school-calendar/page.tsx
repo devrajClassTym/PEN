@@ -3,13 +3,17 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import EventsGrid from "@/components/school-calendar/events-grid";
+import { getSchoolEvents } from "@/lib/school-events";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "School Calendar | P.E.N Schools",
   description: "Explore school events, celebrations, and opportunities to connect with the P.E.N community.",
 };
 
-export default function SchoolCalendarPage() {
+export default async function SchoolCalendarPage() {
+  const events = await getSchoolEvents();
   return (
     <main className="flex-1 bg-[#f8f6f0] text-[#44321b]">
       <section aria-labelledby="calendar-title" className="relative isolate overflow-hidden bg-[#44321b] pt-40 pb-10 text-center text-[#f8f6f0] sm:pt-52 sm:pb-12">
@@ -24,7 +28,7 @@ export default function SchoolCalendarPage() {
           <a href="#calendar-events" className="mt-5 inline-flex min-h-12 items-center gap-6 rounded-full border border-[#d9c6a5]/50 px-7 py-3 text-sm transition-colors hover:bg-[#d9c6a5] hover:text-[#44321b] focus-visible:outline-2 focus-visible:outline-offset-4">Explore events <span aria-hidden="true">↓</span></a>
         </div>
       </section>
-      <EventsGrid />
+      <EventsGrid events={events} />
     </main>
   );
 }

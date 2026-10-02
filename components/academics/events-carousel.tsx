@@ -4,9 +4,9 @@ import { useEffect, useRef, useState, type PointerEvent } from "react";
 import styles from "./events-carousel.module.css";
 
 import Link from "next/link";
-import { schoolEvents as events } from "@/lib/school-events";
+import type { SchoolEvent } from "@/lib/school-events";
 
-export default function EventsCarousel() {
+export default function EventsCarousel({ events }: { events: SchoolEvent[] }) {
   const track = useRef<HTMLDivElement>(null);
   const drag = useRef<{ x: number; scrollLeft: number } | null>(null);
   const [position, setPosition] = useState({ start: 1, end: 3, atStart: true, atEnd: false });
@@ -28,7 +28,7 @@ export default function EventsCarousel() {
     const observer = new ResizeObserver(update);
     observer.observe(element);
     return () => { element.removeEventListener("scroll", update); observer.disconnect(); };
-  }, []);
+  }, [events.length]);
 
   function move(direction: number) {
     const element = track.current;

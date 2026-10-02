@@ -6,8 +6,12 @@ import UpcomingEvents from "@/components/home/upcomingEvents";
 import FounderDesk from "@/components/home/founderDesk";
 import ParentReview from "@/components/home/parentReview";
 import EnquiryForm from "@/components/home/enquiryForm";
+import { getSchoolEvents } from "@/lib/school-events";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const events = await getSchoolEvents();
   return (
     <main className="flex-1 bg-white">
       <Hero />
@@ -16,7 +20,7 @@ export default function Home() {
       <FounderDesk />
       <Gallery />
       <ParentReview />
-      <UpcomingEvents />
+      <UpcomingEvents events={events} />
       <EnquiryForm />
     </main>
   );

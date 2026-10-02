@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import SchoolLogo from "@/components/school-logo";
 import NewsletterSignup from "@/components/newsletter/signup-form";
-import { schoolBlogs } from "@/lib/school-blogs";
+import { getSchoolBlogs } from "@/lib/school-blogs";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Newsletter | P.E.N Schools",
   description: "Read stories about learning, creativity, and school life, and explore the P.E.N newsletter.",
 };
 
-export default function NewsletterPage() {
+export default async function NewsletterPage() {
+  const schoolBlogs = await getSchoolBlogs();
   return (
     <main className="flex-1 bg-[#f8f6f0] text-[#44321b]">
       <section aria-labelledby="newsletter-title" className="relative border-b border-[#44321b]/10 bg-[#eee8da] pt-40 pb-12 text-center sm:pt-52 sm:pb-16">
@@ -29,11 +31,7 @@ export default function NewsletterPage() {
         <ul className="mt-10 divide-y divide-[#44321b]/15 border-y border-[#44321b]/15">
           {schoolBlogs.map((blog, index) => (
             <li key={blog.slug} className="py-8 sm:py-10">
-              <article aria-labelledby={`blog-${blog.slug}`} className="grid items-start gap-7 md:grid-cols-[0.8fr_1.2fr] lg:gap-12">
-                <div className="relative aspect-[16/10] overflow-hidden rounded-lg bg-[#eee8da]">
-                  {/* Illustrative stock photography for sample articles. */}
-                  <Image src={`https://images.unsplash.com/${blog.image}?auto=format&fit=crop&w=1000&q=85`} alt={blog.imageAlt} fill unoptimized sizes="(min-width: 1280px) 480px, (min-width: 768px) 40vw, 100vw" className="object-cover" />
-                </div>
+              <article aria-labelledby={`blog-${blog.slug}`} className="max-w-3xl">
                 <div className="py-1 sm:py-3">
                   <div className="flex items-center gap-4 text-[10px] tracking-[0.18em] text-[#92774f] uppercase"><span>{String(index + 1).padStart(2, "0")}</span><span aria-hidden="true">/</span><span>{blog.category}</span></div>
                   <h3 id={`blog-${blog.slug}`} className="mt-5 font-[Georgia,serif] text-3xl leading-tight tracking-tight sm:text-4xl">{blog.title}</h3>

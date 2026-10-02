@@ -2,6 +2,9 @@ import SchoolLogo from "@/components/school-logo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import EventsCarousel from "@/components/academics/events-carousel";
+import { getSchoolEvents } from "@/lib/school-events";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Academics | P.E.N Schools",
@@ -14,7 +17,8 @@ const learningAreas = [
   { number: "03", title: "Creativity & connection", description: "Making room for art, collaboration, and fresh perspectives alongside everyday learning." },
 ];
 
-export default function AcademicsPage() {
+export default async function AcademicsPage() {
+  const events = await getSchoolEvents();
   return (
     <main className="flex-1 bg-[#f8f6f0] text-[#44321b]">
       <section aria-labelledby="academics-title" className="relative overflow-hidden bg-[#44321b] pt-56 pb-20 text-center text-[#f8f6f0] sm:pt-64 sm:pb-24">
@@ -75,7 +79,7 @@ export default function AcademicsPage() {
           </div>
         </div>
       </section>
-      <EventsCarousel />
+      <EventsCarousel events={events} />
     </main>
   );
 }

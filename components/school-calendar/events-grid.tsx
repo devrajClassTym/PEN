@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { schoolEvents, type SchoolEvent } from "@/lib/school-events";
+import type { SchoolEvent } from "@/lib/school-events";
 
-export default function EventsGrid() {
+export default function EventsGrid({ events: schoolEvents }: { events: SchoolEvent[] }) {
   const [selected, setSelected] = useState<SchoolEvent | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement | null>(null);
