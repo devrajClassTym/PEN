@@ -21,6 +21,16 @@ const galleryFiles = [
 const inputClass = "mt-2 w-full rounded-xl border border-[#44321b]/20 bg-white px-4 py-3 outline-none focus:border-[#44321b] focus:ring-2 focus:ring-[#44321b]/15";
 const textareaClass = `${inputClass} min-h-28 resize-y leading-6`;
 
+function VisibilityToggle({ visible, onToggle, label }: { visible: boolean; onToggle: () => void; label: string }) {
+  return (
+    <button type="button" onClick={onToggle} aria-label={`${visible ? "Hide" : "Show"} ${label}`} aria-pressed={visible} className="absolute top-1/2 right-3 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full text-[#44321b]/65 hover:bg-[#44321b]/5 hover:text-[#44321b] focus-visible:outline-2 focus-visible:outline-offset-2">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+        {visible ? <><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" /><circle cx="12" cy="12" r="3" /></> : <><path d="m3 3 18 18" /><path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" /><path d="M9.9 5.2A10.9 10.9 0 0 1 12 5c5 0 8.5 3.4 10 7-.7 1.7-1.9 3.2-3.4 4.4" /><path d="M6.6 6.6C4.4 7.8 2.8 9.7 2 12c1.5 3.6 5 7 10 7 1.3 0 2.5-.3 3.6-.8" /></>}
+      </svg>
+    </button>
+  );
+}
+
 function createUniqueKey(value: string, currentKeys: string[]) {
   const base = value.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "record";
   let key = base;
@@ -39,6 +49,8 @@ export default function AdminPanel() {
   const [savingContent, setSavingContent] = useState(false);
   const [contentStatus, setContentStatus] = useState("");
   const [editor, setEditor] = useState<Editor | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showSecret, setShowSecret] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -209,10 +221,10 @@ export default function AdminPanel() {
               <input id="admin-email" name="email" type="email" autoComplete="username" required className={inputClass} />
             </label>
             <label className="block text-sm font-medium" htmlFor="admin-password">Password
-              <input id="admin-password" name="password" type="password" autoComplete="current-password" required className={inputClass} />
+              <span className="relative mt-2 block"><input id="admin-password" name="password" type={showPassword ? "text" : "password"} autoComplete="current-password" required className={`${inputClass} mt-0 pr-12`} /><VisibilityToggle visible={showPassword} onToggle={() => setShowPassword((visible) => !visible)} label="password" /></span>
             </label>
             <label className="block text-sm font-medium" htmlFor="admin-secret">Secret key
-              <input id="admin-secret" name="secret" type="password" autoComplete="off" required className={inputClass} />
+              <span className="relative mt-2 block"><input id="admin-secret" name="secret" type={showSecret ? "text" : "password"} autoComplete="off" required className={`${inputClass} mt-0 pr-12`} /><VisibilityToggle visible={showSecret} onToggle={() => setShowSecret((visible) => !visible)} label="secret key" /></span>
             </label>
             {error && <p role="alert" className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
             <button type="submit" className="w-full rounded-xl bg-[#44321b] px-5 py-3 font-medium text-white hover:bg-[#60492b] focus-visible:outline-2 focus-visible:outline-offset-4">Log in</button>
