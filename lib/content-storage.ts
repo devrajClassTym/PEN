@@ -2,7 +2,10 @@ import { get, put } from "@vercel/blob";
 import { readFile, writeFile } from "node:fs/promises";
 
 export function hasPersistentContentStorage() {
-  return Boolean(process.env.BLOB_READ_WRITE_TOKEN || (process.env.VERCEL_OIDC_TOKEN && process.env.BLOB_STORE_ID));
+  return Boolean(
+    process.env.BLOB_STORE_ID ||
+    process.env.BLOB_READ_WRITE_TOKEN
+  );
 }
 
 export async function readJsonCollection<T>(pathname: string, filePath: string, fallback: T): Promise<T> {
