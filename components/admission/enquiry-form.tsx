@@ -1,16 +1,24 @@
 "use client";
 
 import { useState } from "react";
+import ClassDropdown from "@/components/home/classDropdown";
 
 const classes = ["Nursery", "LKG", "UKG", ...Array.from({ length: 12 }, (_, index) => `Class ${index + 1}`)];
 
 export default function AdmissionEnquiry() {
   const [message, setMessage] = useState("");
+  const [selectedClass, setSelectedClass] = useState("");
+  const [classInvalid, setClassInvalid] = useState(false);
   const field = "mt-2 min-h-12 w-full rounded-md border border-[#44321b]/20 bg-white/70 px-4 py-3 text-base text-[#44321b] outline-none placeholder:text-[#44321b]/40 focus:border-[#44321b] focus:ring-2 focus:ring-[#44321b]/10";
 
   return (
     <form aria-label="Admission enquiry" aria-describedby="admission-form-note" className="border border-[#44321b]/15 bg-[#f8f6f0] p-6 sm:p-9" onSubmit={(event) => {
       event.preventDefault();
+      if (!selectedClass) {
+        setClassInvalid(true);
+        document.getElementById("admission-class")?.focus();
+        return;
+      }
       // Connect an admissions service before accepting or storing enquiries.
       setMessage("Unable to send your enquiry. Please contact the school directly.");
     }}>
@@ -21,7 +29,20 @@ export default function AdmissionEnquiry() {
         <label htmlFor="admission-parent" className="text-sm font-medium">Parent / guardian name *<input id="admission-parent" name="parentName" autoComplete="name" required maxLength={100} pattern=".*\S.*" placeholder="Your full name" className={field} /></label>
         <label htmlFor="admission-phone" className="text-sm font-medium">Phone number *<input id="admission-phone" name="phone" type="tel" autoComplete="tel" required minLength={7} maxLength={20} pattern="\+?[0-9\s\(\)\-]{7,20}" title="Enter a phone number using digits, spaces, brackets, or hyphens, with an optional leading +." placeholder="Your phone number" className={field} /></label>
         <label htmlFor="admission-email" className="text-sm font-medium sm:col-span-2">Email address<input id="admission-email" name="email" type="email" autoComplete="email" maxLength={254} placeholder="you@example.com" className={field} /></label>
-        <label htmlFor="admission-class" className="text-sm font-medium">Class interested in *<select id="admission-class" name="classApplyingFor" required defaultValue="" className={field}><option value="" disabled>Select a class</option>{classes.map((item) => <option key={item}>{item}</option>)}<option>Help me choose</option></select></label>
+        <ClassDropdown
+          id="admission-class"
+          label="Class interested in *"
+          labelClassName="text-sm font-medium"
+          name="classApplyingFor"
+          options={[...classes, "Help me choose"]}
+          placeholder="Select a class"
+          value={selectedClass}
+          invalid={classInvalid}
+          onChange={(value) => {
+            setSelectedClass(value);
+            setClassInvalid(false);
+          }}
+        />
         <label htmlFor="admission-location" className="text-sm font-medium">Location *<input id="admission-location" name="location" autoComplete="address-level2" required maxLength={120} pattern=".*\S.*" placeholder="Your area or city" className={field} /></label>
         <label htmlFor="admission-message" className="text-sm font-medium sm:col-span-2">Anything you’d like to ask?<textarea id="admission-message" name="message" rows={4} maxLength={2000} placeholder="Tell us how we can help…" className={`${field} resize-y`} /></label>
       </div>

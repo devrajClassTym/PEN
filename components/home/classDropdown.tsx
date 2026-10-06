@@ -2,9 +2,29 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const options = ["Nursery", "LKG", "UKG", ...Array.from({ length: 12 }, (_, index) => `Class ${index + 1}`)];
+const defaultOptions = ["Nursery", "LKG", "UKG", ...Array.from({ length: 12 }, (_, index) => `Class ${index + 1}`)];
 
-export default function ClassDropdown({ value, onChange, invalid }: { value: string; onChange: (value: string) => void; invalid: boolean }) {
+export default function ClassDropdown({
+  value,
+  onChange,
+  invalid,
+  options = defaultOptions,
+  id = "enquiry-class",
+  name = "classApplyingFor",
+  label = "Class applying for",
+  placeholder = "Select class",
+  labelClassName = "text-xs font-medium",
+}: {
+  value: string;
+  onChange: (value: string) => void;
+  invalid: boolean;
+  options?: string[];
+  id?: string;
+  name?: string;
+  label?: string;
+  placeholder?: string;
+  labelClassName?: string;
+}) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
   const root = useRef<HTMLDivElement>(null);
@@ -21,8 +41,8 @@ export default function ClassDropdown({ value, onChange, invalid }: { value: str
   }, [open]);
 
   useEffect(() => {
-    if (open) document.getElementById(`class-option-${active}`)?.scrollIntoView({ block: "nearest" });
-  }, [active, open]);
+    if (open) document.getElementById(`${id}-option-${active}`)?.scrollIntoView({ block: "nearest" });
+  }, [active, id, open]);
 
   function choose(index: number) {
     onChange(options[index]);
@@ -30,11 +50,15 @@ export default function ClassDropdown({ value, onChange, invalid }: { value: str
     trigger.current?.focus();
   }
 
+  const labelId = `${id}-label`;
+  const listId = `${id}-options`;
+  const errorId = `${id}-error`;
+
   return (
     <div ref={root} className="relative" onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false); }}>
-      <label id="enquiry-class-label" htmlFor="enquiry-class" className="text-xs font-medium">Class applying for</label>
-      <input type="hidden" name="classApplyingFor" value={value} />
-      <button ref={trigger} id="enquiry-class" type="button" role="combobox" aria-labelledby="enquiry-class-label" aria-expanded={open} aria-controls="enquiry-class-options" aria-haspopup="listbox" aria-required="true" aria-invalid={invalid} aria-describedby={invalid ? "enquiry-class-error" : undefined} aria-activedescendant={open ? `class-option-${active}` : undefined}
+      <label id={labelId} htmlFor={id} className={labelClassName}>{label}</label>
+      <input type="hidden" name={name} value={value} />
+      <button ref={trigger} id={id} type="button" role="combobox" aria-labelledby={labelId} aria-expanded={open} aria-controls={listId} aria-haspopup="listbox" aria-required="true" aria-invalid={invalid} aria-describedby={invalid ? errorId : undefined} aria-activedescendant={open ? `${id}-option-${active}` : undefined}
         className={`mt-2 flex min-h-12 w-full items-center justify-between gap-3 rounded-md border bg-white/70 px-4 text-left text-sm outline-none transition-colors hover:border-[#44321b]/40 focus:border-[#44321b] focus:ring-2 focus:ring-[#44321b]/10 ${invalid ? "border-red-700" : "border-[#44321b]/20"}`}
         onClick={() => { setActive(Math.max(0, options.indexOf(value))); setOpen(!open); }}
         onKeyDown={(event) => {
@@ -57,15 +81,15 @@ export default function ClassDropdown({ value, onChange, invalid }: { value: str
             if (match !== -1) { setActive(match); setOpen(true); }
           }
         }}>
-        <span className={value ? "" : "text-[#44321b]/45"}>{value || "Select class"}</span>
+        <span className={value ? "" : "text-[#44321b]/45"}>{value || placeholder}</span>
         <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className={`h-4 w-4 text-[#44321b]/60 transition-transform ${open ? "rotate-180" : ""}`}><path d="m5 7.5 5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </button>
-      {open && <ul id="enquiry-class-options" role="listbox" aria-labelledby="enquiry-class-label" className="absolute bottom-full z-30 mb-2 max-h-60 w-full overflow-y-auto overscroll-contain rounded-xl border border-[#44321b]/15 bg-[#fffdf8] p-1.5 shadow-[0_12px_40px_#44321b20]">
-        {options.map((option, index) => <li key={option} id={`class-option-${index}`} role="option" aria-selected={value === option} onPointerDown={(event) => event.preventDefault()} onClick={() => choose(index)} onPointerMove={() => setActive(index)} className={`flex cursor-pointer items-center justify-between rounded-lg px-3 py-2.5 text-sm ${active === index ? "bg-[#eee9df]" : ""}`}>
+      {open && <ul id={listId} role="listbox" aria-labelledby={labelId} className="absolute bottom-full z-30 mb-2 max-h-60 w-full overflow-y-auto overscroll-contain rounded-xl border border-[#44321b]/15 bg-[#fffdf8] p-1.5 shadow-[0_12px_40px_#44321b20]">
+        {options.map((option, index) => <li key={option} id={`${id}-option-${index}`} role="option" aria-selected={value === option} onPointerDown={(event) => event.preventDefault()} onClick={() => choose(index)} onPointerMove={() => setActive(index)} className={`flex cursor-pointer items-center justify-between rounded-lg px-3 py-2.5 text-sm ${active === index ? "bg-[#eee9df]" : ""}`}>
           {option}<span aria-hidden="true" className="text-[#826238]">{value === option ? "✓" : ""}</span>
         </li>)}
       </ul>}
-      {invalid && <p id="enquiry-class-error" className="absolute mt-1 text-[11px] text-red-700">Please select a class.</p>}
+      {invalid && <p id={errorId} className="absolute mt-1 text-[11px] text-red-700">Please select a class.</p>}
     </div>
   );
 }
