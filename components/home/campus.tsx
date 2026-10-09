@@ -1,29 +1,38 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-// Temporary campus details; replace with the school's campus information.
 const campuses = [
   {
-    id: "visakhapatnam-one",
-    name: "P.E.N. Schools — Visakhapatnam",
-    description:
-      "A learning environment shaped by strong foundations, meaningful relationships and room for every child to grow.",
-    color: "#e3ded1",
+    id: "dabagardens-senior",
+    name: "Dabagardens Senior",
+    image: "/images/gallery/campus1.jpeg",
   },
   {
-    id: "visakhapatnam-two",
-    name: "P.E.N. Schools — Visakhapatnam",
-    description:
-      "A community where academic learning meets curiosity, creativity and experiences beyond the classroom.",
-    color: "#d9dfd5",
+    id: "dabagardens-junior",
+    name: "Dabagardens Junior",
+    image: "/images/gallery/campus2.jpeg",
   },
   {
-    id: "visakhapatnam-three",
-    name: "P.E.N. Schools — Visakhapatnam",
-    description:
-      "The same P.E.N. values, carried forward in a new generation of learners.",
-    color: "#e5d8ca",
+    id: "akkayyapalem-senior",
+    name: "Akkayyapalem Senior",
+    image: "/images/gallery/campus3.JPG",
+  },
+  {
+    id: "akkayyapalem-junior",
+    name: "Akkayyapalem Junior",
+    image: "/images/gallery/campus4.JPG",
+  },
+  {
+    id: "madhavadara",
+    name: "Madhavadara",
+    image: "/images/gallery/campus5.jpg",
+  },
+  {
+    id: "yendada",
+    name: "Yendada",
+    image: "/images/gallery/campus6.JPG",
   },
 ];
 
@@ -194,51 +203,19 @@ export default function Campus() {
                 aria-label={`${index + 1} of ${campuses.length}`}
                 className="w-full shrink-0 snap-start"
               >
-                <div
-                  className="relative flex aspect-[16/10] items-center justify-center overflow-hidden"
-                  style={{ backgroundColor: campus.color }}
-                >
-                  <svg
-                    role="img"
-                    aria-label="Campus illustration"
-                    viewBox="0 0 400 300"
-                    className="h-full w-full text-[#44321b]/20"
-                    fill="none"
-                  >
-                    <circle
-                      cx="308"
-                      cy="66"
-                      r="28"
-                      fill="currentColor"
-                      opacity="0.3"
-                    />
-                    <path
-                      d="M0 246Q100 207 200 246T400 246V300H0Z"
-                      fill="currentColor"
-                      opacity="0.2"
-                    />
-                    <path
-                      d="M85 230V126H170V91H230V126H315V230M70 230H330M170 126V230M230 126V230M189 230V194H211V230M176 91L200 69L224 91"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    />
-                    {[110, 140, 190, 210, 255, 285].map((x) => (
-                      <path
-                        key={x}
-                        d={`M${x} 147v16m0 15v16`}
-                        stroke="currentColor"
-                        strokeWidth="9"
-                      />
-                    ))}
-                  </svg>
+                <div className="relative aspect-[16/10] overflow-hidden bg-[#e8dfce]">
+                  <Image
+                    src={campus.image}
+                    alt={`${campus.name} campus`}
+                    fill
+                    sizes="(min-width: 1024px) 560px, 100vw"
+                    className="object-cover"
+                  />
                 </div>
                 <figcaption className="pt-6">
                   <h3 className="font-[Georgia,'Times_New_Roman',serif] text-2xl sm:text-3xl">
                     {campus.name}
                   </h3>
-                  <p className="mt-2 max-w-lg text-sm leading-7 text-[#44321b]/65">
-                    {campus.description}
-                  </p>
                 </figcaption>
               </figure>
             ))}

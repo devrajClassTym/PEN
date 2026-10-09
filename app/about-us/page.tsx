@@ -120,12 +120,10 @@ export default function AboutUs() {
           </div>
           <div className="relative w-full min-w-0">
             <div className="relative aspect-[4/3] overflow-hidden rounded-[24px] sm:rounded-[40px] bg-[#eee8da]">
-              {/* Illustrative stock image; replace with the P.E.N leadership team photo when available. */}
               <Image
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=85"
-                alt="Illustrative photograph of a team collaborating around a table"
+                src="/images/gallery/leadershipTeam.JPG"
+                alt="P.E.N. Schools leadership team at a school event"
                 fill
-                unoptimized
                 sizes="(min-width: 1480px) 738px, (min-width: 1024px) 52vw, 94vw"
                 className="object-cover"
               />

@@ -17,13 +17,11 @@ export default function BeyondAcademics() {
         aria-labelledby="beyond-title"
         className="relative isolate flex min-h-[85svh] items-center justify-center overflow-hidden bg-[#302416] px-6 pt-56 pb-20 text-center text-white sm:pt-64"
       >
-        {/* Illustrative stock photography until school activity photographs are available. */}
         <Image
-          src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=2200&q=85"
+          src="/images/gallery/sport2.JPG"
           alt=""
           fill
           priority
-          unoptimized
           sizes="100vw"
           className="-z-20 object-cover"
         />

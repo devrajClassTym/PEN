@@ -3,37 +3,30 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-// Fictional campus details and illustrative stock images for layout review.
 const campuses = [
   {
-    name: "Seaside Campus",
-    location: "MVP Colony, Visakhapatnam",
-    address: "12 Learning Lane, Sector 3, MVP Colony, Visakhapatnam — 530017",
-    photo: "photo-1580582932707-520aed937b7b",
+    name: "Dabagardens Senior",
+    image: "/images/gallery/campus1.jpeg",
   },
   {
-    name: "City Campus",
-    location: "Dwaraka Nagar, Visakhapatnam",
-    address: "24 Knowledge Avenue, Dwaraka Nagar, Visakhapatnam — 530016",
-    photo: "photo-1523050854058-8df90110c9f1",
+    name: "Dabagardens Junior",
+    image: "/images/gallery/campus2.jpeg",
   },
   {
-    name: "Green Valley Campus",
-    location: "Madhurawada, Visakhapatnam",
-    address: "8 Discovery Road, Madhurawada, Visakhapatnam — 530048",
-    photo: "photo-1562774053-701939374585",
+    name: "Akkayyapalem Senior",
+    image: "/images/gallery/campus3.JPG",
   },
   {
-    name: "Hillview Campus",
-    location: "Gajuwaka, Visakhapatnam",
-    address: "16 Scholars Street, Gajuwaka, Visakhapatnam — 530026",
-    photo: "photo-1541339907198-e08756dedf3f",
+    name: "Akkayyapalem Junior",
+    image: "/images/gallery/campus4.JPG",
   },
   {
-    name: "North Campus",
-    location: "Rushikonda, Visakhapatnam",
-    address: "32 Inspiration Road, Rushikonda, Visakhapatnam — 530045",
-    photo: "photo-1592066575517-58df903152f2",
+    name: "Madhavadara",
+    image: "/images/gallery/campus5.jpg",
+  },
+  {
+    name: "Yendada",
+    image: "/images/gallery/campus6.JPG",
   },
 ];
 
@@ -133,22 +126,17 @@ export default function CampusCarousel() {
             >
               <div className="relative aspect-[16/10] bg-[#e8dfce]">
                 <Image
-                  src={`https://images.unsplash.com/${campus.photo}?auto=format&fit=crop&w=1000&q=85`}
-                  alt={`Illustrative school photograph for ${campus.name}`}
+                  src={campus.image}
+                  alt={`${campus.name} campus`}
                   fill
-                  unoptimized
                   sizes="(min-width: 1024px) 32vw, (min-width: 640px) 48vw, 94vw"
                   className="object-cover"
                 />
               </div>
               <div className="p-6">
-                <p className="text-sm text-[#44321b]/65">{campus.location}</p>
-                <h3 className="mt-3 font-[Georgia,'Times_New_Roman',serif] text-3xl">
+                <h3 className="font-[Georgia,'Times_New_Roman',serif] text-3xl">
                   {campus.name}
                 </h3>
-                <address className="mt-4 text-base leading-relaxed text-[#44321b]/75 not-italic">
-                  {campus.address}
-                </address>
               </div>
             </li>
           ))}

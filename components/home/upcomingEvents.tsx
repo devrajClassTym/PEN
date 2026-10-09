@@ -71,10 +71,9 @@ export default function UpcomingEvents({ events: schoolEvents = [] }: { events?:
     >
       <div className="relative min-h-64 bg-[#d9dfd5] sm:min-h-[360px] lg:min-h-full">
         <Image
-          src="https://picsum.photos/seed/pen-events/1200/1400"
+          src="/images/gallery/image copy 6.png"
           alt="School events photograph"
           fill
-          unoptimized
           sizes="(min-width: 1024px) 50vw, 100vw"
           className="object-cover"
         />

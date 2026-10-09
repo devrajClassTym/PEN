@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import styles from "./activity-tabs.module.css";
 
-// Draft activity copy and illustrative stock photographs; replace with approved school content.
 const activities = [
   {
     id: "sports-meet",
@@ -18,35 +17,28 @@ const activities = [
     icon: "M8 3h8v6a4 4 0 0 1-8 0V3ZM8 5H4v3a4 4 0 0 0 4 4M16 5h4v3a4 4 0 0 1-4 4M12 13v5M8 21v-3h8v3M6 21h12",
     photos: [
       {
-        id: "photo-1546519638-68e109498ffc",
-        alt: "Basketball game on an indoor court",
-        caption: "Play with heart",
+        id: "sport1.JPG",
+        alt: "Outdoor school recreation area",
       },
       {
-        id: "photo-1461896836934-ffe607ba8211",
-        alt: "Runners competing on an athletics track",
-        caption: "Go a little further",
+        id: "sport2.JPG",
+        alt: "School sports field prepared for an athletics meet",
       },
       {
-        id: "photo-1574629810360-7efbbe195018",
-        alt: "Football on a grass pitch",
-        caption: "One team. One spirit.",
-      },
-      // Extra stock photos to test a larger, multi-row gallery.
-      {
-        id: "photo-1531415074968-036ba1b575da",
-        alt: "Cricket ground during a match",
-        caption: "Every run counts",
+        id: "sport3.JPG",
+        alt: "Students racing on an athletics track",
       },
       {
-        id: "photo-1554068865-24cecd4e34b8",
-        alt: "Tennis court ready for play",
-        caption: "Rise to the challenge",
+        id: "sport5.JPG",
+        alt: "Students taking part in a school sports meet",
       },
       {
-        id: "photo-1530549387789-4c1017266635",
-        alt: "Swimmer moving through a pool",
-        caption: "Find your own pace",
+        id: "sport6.JPG",
+        alt: "Students competing in a field event",
+      },
+      {
+        id: "sport7.JPG",
+        alt: "Students gathered during a school sports meet",
       },
     ],
   },
@@ -260,15 +252,19 @@ export default function ActivityTabs() {
                   <figure key={photo.id} className={styles.photo}>
                     <div className={styles.imageWrap}>
                       <Image
-                        src={`https://images.unsplash.com/${photo.id}?auto=format&fit=crop&w=1000&q=85`}
+                        src={
+                          activity.id === "sports-meet"
+                            ? `/images/gallery/${photo.id}`
+                            : `https://images.unsplash.com/${photo.id}?auto=format&fit=crop&w=1000&q=85`
+                        }
                         alt={photo.alt}
                         fill
-                        unoptimized
+                        unoptimized={activity.id !== "sports-meet"}
                         sizes="(min-width: 1024px) 30vw, (min-width: 601px) 44vw, 85vw"
                         className={styles.image}
                       />
                     </div>
-                    <figcaption>{photo.caption}</figcaption>
+                    {"caption" in photo && <figcaption>{photo.caption}</figcaption>}
                   </figure>
                 ))}
               </div>
