@@ -43,34 +43,6 @@ const activities = [
     ],
   },
   {
-    id: "competitions",
-    label: "Competitions",
-    theme: "#ede2d5",
-    kicker: "Dare to try",
-    heading: "Try something new.",
-    accent: "Challenge yourself.",
-    subtitle:
-      "Competitions give children the chance to step forward, put their skills to the test and learn from every experience.",
-    icon: "m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9L12 3Z",
-    photos: [
-      {
-        id: "photo-1587654780291-39c9404d746b",
-        alt: "Colourful building blocks for creative projects",
-        caption: "Imagine something new",
-      },
-      {
-        id: "photo-1513364776144-60967b0f800f",
-        alt: "Paints and brushes ready for an art project",
-        caption: "Make your mark",
-      },
-      {
-        id: "photo-1522071820081-009f0129c71c",
-        alt: "A group collaborating on ideas",
-        caption: "Better ideas, together",
-      },
-    ],
-  },
-  {
     id: "awards-nights",
     label: "Awards Nights",
     theme: "#eee2c8",
@@ -82,19 +54,28 @@ const activities = [
     icon: "M8 3h8l-1 7h-6L8 3ZM9 3 6 1M15 3l3-2M12 10a5 5 0 1 0 0 10 5 5 0 0 0 0-10ZM9 19l-1 4 4-2 4 2-1-4",
     photos: [
       {
-        id: "photo-1511795409834-ef04bbd61622",
-        alt: "An event space prepared for a celebration",
-        caption: "An evening to remember",
+        id: "awardNight1.JPG",
+        alt: "P.E.N. Schools award night photo 1",
       },
       {
-        id: "photo-1470229722913-7c0e2dbbafd3",
-        alt: "Colourful stage lighting at a live event",
-        caption: "A moment in the spotlight",
+        id: "awardNight2.png",
+        alt: "P.E.N. Schools award night photo 2",
       },
       {
-        id: "photo-1523580494863-6f3031224c94",
-        alt: "A gathering celebrating an educational milestone",
-        caption: "Celebrate how far you’ve come",
+        id: "awardNight3.png",
+        alt: "P.E.N. Schools award night photo 3",
+      },
+      {
+        id: "awardNight4.png",
+        alt: "P.E.N. Schools award night photo 4",
+      },
+      {
+        id: "awardNight5.png",
+        alt: "P.E.N. Schools award night photo 5",
+      },
+      {
+        id: "awardNight6.png",
+        alt: "P.E.N. Schools award night photo 6",
       },
     ],
   },
@@ -110,19 +91,16 @@ const activities = [
     icon: "m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6ZM9 3v15M15 6v15",
     photos: [
       {
-        id: "photo-1564399579883-451a5d44ec08",
-        alt: "Exhibits inside a museum",
-        caption: "A world of questions",
+        id: "image9.png",
+        alt: "P.E.N. Schools educational trip photo 1",
       },
       {
-        id: "photo-1441974231531-c6227db76b6e",
-        alt: "Sunlight filtering through a green forest",
-        caption: "Take the scenic route",
+        id: "image10.png",
+        alt: "P.E.N. Schools educational trip photo 2",
       },
       {
-        id: "photo-1500530855697-b586d89ba3ee",
-        alt: "An expansive landscape beneath an open sky",
-        caption: "Look a little closer",
+        id: "image2.png",
+        alt: "P.E.N. Schools educational trip photo 3",
       },
     ],
   },
@@ -138,19 +116,28 @@ const activities = [
     icon: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75",
     photos: [
       {
-        id: "photo-1513364776144-60967b0f800f",
-        alt: "Art materials for creative exploration",
-        caption: "Create your own colour",
+        id: "image copy 8.png",
+        alt: "P.E.N. school club activity",
       },
       {
-        id: "photo-1511379938547-c1f69419868d",
-        alt: "Musical instruments in a rehearsal space",
-        caption: "Find your rhythm",
+        id: "penClub2.JPG",
+        alt: "P.E.N. school club activity 2",
       },
       {
-        id: "photo-1522071820081-009f0129c71c",
-        alt: "People working together around a table",
-        caption: "Find your circle",
+        id: "penClub3.JPG",
+        alt: "P.E.N. school club activity 3",
+      },
+      {
+        id: "penClub4.JPG",
+        alt: "P.E.N. school club activity 4",
+      },
+      {
+        id: "penClub5.JPG",
+        alt: "P.E.N. school club activity 5",
+      },
+      {
+        id: "penClub6.JPG",
+        alt: "P.E.N. school club activity 6",
       },
     ],
   },
@@ -248,25 +235,27 @@ export default function ActivityTabs() {
                   className={styles.backdrop}
                   style={{ backgroundColor: activity.theme }}
                 />
-                {activity.photos.map((photo) => (
-                  <figure key={photo.id} className={styles.photo}>
-                    <div className={styles.imageWrap}>
-                      <Image
-                        src={
-                          activity.id === "sports-meet"
-                            ? `/images/gallery/${photo.id}`
-                            : `https://images.unsplash.com/${photo.id}?auto=format&fit=crop&w=1000&q=85`
-                        }
-                        alt={photo.alt}
-                        fill
-                        unoptimized={activity.id !== "sports-meet"}
-                        sizes="(min-width: 1024px) 30vw, (min-width: 601px) 44vw, 85vw"
-                        className={styles.image}
-                      />
-                    </div>
-                    {"caption" in photo && <figcaption>{photo.caption}</figcaption>}
-                  </figure>
-                ))}
+                {activity.photos.map((photo) => {
+                  const isExternalPhoto = photo.id.startsWith("photo-");
+                  return (
+                    <figure key={photo.id} className={styles.photo}>
+                      <div className={styles.imageWrap}>
+                        <Image
+                          src={
+                            isExternalPhoto
+                              ? `https://images.unsplash.com/${photo.id}?auto=format&fit=crop&w=1000&q=85`
+                              : `/images/gallery/${photo.id}`
+                          }
+                          alt={photo.alt}
+                          fill
+                          unoptimized={isExternalPhoto}
+                          sizes="(min-width: 1024px) 30vw, (min-width: 601px) 44vw, 85vw"
+                          className={styles.image}
+                        />
+                      </div>
+                    </figure>
+                  );
+                })}
               </div>
             </div>
           )}
