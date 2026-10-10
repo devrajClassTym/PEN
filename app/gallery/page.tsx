@@ -1,7 +1,10 @@
+import { readdir } from "node:fs/promises";
+import path from "node:path";
 import SchoolLogo from "@/components/school-logo";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { connection } from "next/server";
 
 export const metadata: Metadata = {
   title: "Gallery | P.E.N Schools",
@@ -9,121 +12,28 @@ export const metadata: Metadata = {
     "A glimpse of life at P.E.N Schools — learning, creativity, sport, and shared moments.",
 };
 
-const photos = [
-  { filename: "image.png", alt: "P.E.N. school life photograph 1", tall: true },
-  {
-    filename: "image2.png",
-    alt: "P.E.N. school life photograph 2",
-    tall: false,
-  },
-  {
-    filename: "image3.png",
-    alt: "P.E.N. school life photograph 3",
-    tall: true,
-  },
-  {
-    filename: "image4.png",
-    alt: "P.E.N. school life photograph 4",
-    tall: false,
-  },
-  {
-    filename: "image5.png",
-    alt: "P.E.N. school life photograph 5",
-    tall: false,
-  },
-  {
-    filename: "image6.jpeg",
-    alt: "P.E.N. school life photograph 6",
-    tall: true,
-  },
-  {
-    filename: "image7.png",
-    alt: "P.E.N. school life photograph 7",
-    tall: true,
-  },
-  {
-    filename: "image8.png",
-    alt: "P.E.N. school life photograph 8",
-    tall: false,
-  },
-  {
-    filename: "image9.png",
-    alt: "P.E.N. school life photograph 9",
-    tall: true,
-  },
-  {
-    filename: "image10.png",
-    alt: "P.E.N. school life photograph 10",
-    tall: false,
-  },
-  {
-    filename: "image copy.png",
-    alt: "P.E.N. school life photograph 11",
-    tall: true,
-  },
-  {
-    filename: "image copy 2.png",
-    alt: "P.E.N. school life photograph 12",
-    tall: false,
-  },
-  {
-    filename: "image copy 3.png",
-    alt: "P.E.N. school life photograph 13",
-    tall: true,
-  },
-  {
-    filename: "image copy 4.png",
-    alt: "P.E.N. school life photograph 14",
-    tall: false,
-  },
-  {
-    filename: "image copy 5.png",
-    alt: "P.E.N. school life photograph 15",
-    tall: true,
-  },
-  {
-    filename: "image copy 6.png",
-    alt: "P.E.N. school life photograph 16",
-    tall: false,
-  },
-  {
-    filename: "image copy 7.png",
-    alt: "P.E.N. school life photograph 17",
-    tall: true,
-  },
-  {
-    filename: "image copy 8.png",
-    alt: "P.E.N. school life photograph 18",
-    tall: false,
-  },
-  {
-    filename: "image copy 9.png",
-    alt: "P.E.N. school life photograph 19",
-    tall: true,
-  },
-  {
-    filename: "image copy 10.png",
-    alt: "P.E.N. school life photograph 20",
-    tall: false,
-  },
-  {
-    filename: "image copy 11.png",
-    alt: "P.E.N. school life photograph 21",
-    tall: true,
-  },
-  {
-    filename: "image copy 12.png",
-    alt: "P.E.N. school life photograph 22",
-    tall: false,
-  },
-  {
-    filename: "image copy 13.png",
-    alt: "P.E.N. school life photograph 23",
-    tall: true,
-  },
-];
+const imageExtension = /\.(avif|bmp|gif|ico|jpe?g|png|svg|webp)$/i;
 
-export default function GalleryPage() {
+async function findImages(directory: string, relativePath = ""): Promise<string[]> {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const images = await Promise.all(
+    entries.map(async (entry) => {
+      const filename = path.posix.join(relativePath, entry.name);
+      if (entry.isDirectory()) {
+        return findImages(path.join(directory, entry.name), filename);
+      }
+      return entry.isFile() && imageExtension.test(entry.name) ? [filename] : [];
+    }),
+  );
+  return images.flat();
+}
+
+export default async function GalleryPage() {
+  await connection();
+  const photos = (await findImages(path.join(process.cwd(), "public", "images"))).sort(
+    (a, b) => a.localeCompare(b, undefined, { numeric: true }),
+  );
+
   return (
     <main id="top" className="flex-1 bg-[#f8f6f0] text-[#44321b]">
       <header className="px-6 pt-6 pb-12 text-center sm:pt-8 sm:pb-16">
@@ -157,12 +67,12 @@ export default function GalleryPage() {
         <div className="columns-1 gap-4 sm:columns-2 sm:gap-5 lg:columns-3">
           {photos.map((photo, index) => (
             <figure
-              key={photo.filename}
-              className={`relative mb-4 break-inside-avoid overflow-hidden rounded-2xl bg-[#e8dfce] sm:mb-5 ${photo.tall ? "aspect-[4/5]" : "aspect-[4/3]"}`}
+              key={photo}
+              className={`relative mb-4 break-inside-avoid overflow-hidden rounded-2xl bg-[#e8dfce] sm:mb-5 ${index % 3 === 0 ? "aspect-[4/5]" : "aspect-[4/3]"}`}
             >
               <Image
-                src={`/images/gallery/${photo.filename}`}
-                alt={photo.alt}
+                src={`/images/${photo.split("/").map(encodeURIComponent).join("/")}`}
+                alt={path.parse(photo).name.replace(/[-_]/g, " ")}
                 fill
                 loading={index < 3 ? "eager" : "lazy"}
                 sizes="(min-width: 1600px) 493px, (min-width: 1024px) 32vw, (min-width: 640px) 48vw, 94vw"
