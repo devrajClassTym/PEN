@@ -7,20 +7,42 @@ const classes = ["Nursery", "LKG", "UKG", ...Array.from({ length: 12 }, (_, inde
 
 export default function AdmissionEnquiry() {
   const [message, setMessage] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const [selectedClass, setSelectedClass] = useState("");
   const [classInvalid, setClassInvalid] = useState(false);
   const field = "mt-2 min-h-12 w-full rounded-md border border-[#44321b]/20 bg-white/70 px-4 py-3 text-base text-[#44321b] outline-none placeholder:text-[#44321b]/40 focus:border-[#44321b] focus:ring-2 focus:ring-[#44321b]/10";
 
   return (
-    <form aria-label="Admission enquiry" aria-describedby="admission-form-note" className="border border-[#44321b]/15 bg-[#f8f6f0] p-6 sm:p-9" onSubmit={(event) => {
+    <form aria-label="Admission enquiry" aria-describedby="admission-form-note" className="border border-[#44321b]/15 bg-[#f8f6f0] p-6 sm:p-9" onSubmit={async (event) => {
       event.preventDefault();
+      if (submitting) return;
+      const form = event.currentTarget;
       if (!selectedClass) {
         setClassInvalid(true);
         document.getElementById("admission-class")?.focus();
         return;
       }
-      // Connect an admissions service before accepting or storing enquiries.
-      setMessage("Unable to send your enquiry. Please contact the school directly.");
+      setSubmitting(true);
+      setMessage("Sending…");
+      try {
+        const response = await fetch("/api/enquiries", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ type: "admission", ...Object.fromEntries(new FormData(form)) }),
+        });
+        const result = await response.json();
+        if (!response.ok || result.success !== true) {
+          throw new Error(result.error || "Unable to send your enquiry. Please try again later.");
+        }
+        form.reset();
+        setSelectedClass("");
+        setClassInvalid(false);
+        setMessage("Thank you! Your enquiry has been sent. Our team will contact you soon.");
+      } catch (error) {
+        setMessage(error instanceof Error ? error.message : "Unable to send your enquiry. Please try again later.");
+      } finally {
+        setSubmitting(false);
+      }
     }}>
       <h3 className="font-[Georgia,serif] text-2xl">Let’s get to know you.</h3>
       <p id="admission-form-note" className="mt-3 text-sm leading-relaxed text-[#44321b]/65">Fields marked * are required.</p>
@@ -46,7 +68,7 @@ export default function AdmissionEnquiry() {
         <label htmlFor="admission-location" className="text-sm font-medium">Location *<input id="admission-location" name="location" autoComplete="address-level2" required maxLength={120} pattern=".*\S.*" placeholder="Your area or city" className={field} /></label>
         <label htmlFor="admission-message" className="text-sm font-medium sm:col-span-2">Anything you’d like to ask?<textarea id="admission-message" name="message" rows={4} maxLength={2000} placeholder="Tell us how we can help…" className={`${field} resize-y`} /></label>
       </div>
-      <button type="submit" className="mt-7 inline-flex min-h-12 items-center justify-center gap-8 rounded-full bg-[#44321b] px-7 py-3 text-sm text-white transition-colors hover:bg-[#302416] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#44321b]">Enquire now <span aria-hidden="true">↗</span></button>
+      <button type="submit" disabled={submitting} className="mt-7 inline-flex min-h-12 items-center justify-center gap-8 rounded-full bg-[#44321b] px-7 py-3 text-sm text-white transition-colors hover:bg-[#302416] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#44321b]">{submitting ? "Sending…" : "Enquire now"} <span aria-hidden="true">↗</span></button>
       <p role="status" className={message ? "mt-5 text-sm leading-relaxed text-[#44321b]/80" : "sr-only"}>{message}</p>
     </form>
   );

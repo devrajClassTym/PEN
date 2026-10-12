@@ -5,7 +5,6 @@ import Gallery from "@/components/home/gallery";
 import UpcomingEvents from "@/components/home/upcomingEvents";
 import FounderDesk from "@/components/home/founderDesk";
 import ParentReview from "@/components/home/parentReview";
-import EnquiryForm from "@/components/home/enquiryForm";
 import { getSchoolEvents } from "@/lib/school-events";
 
 export const dynamic = "force-dynamic";
@@ -21,7 +20,6 @@ export default async function Home() {
       <Gallery />
       <ParentReview />
       <UpcomingEvents events={events} />
-      <EnquiryForm />
     </main>
   );
 }

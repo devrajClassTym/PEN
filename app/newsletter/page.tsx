@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SchoolLogo from "@/components/school-logo";
-import NewsletterSignup from "@/components/newsletter/signup-form";
 import { getSchoolBlogs } from "@/lib/school-blogs";
 
 export const dynamic = "force-dynamic";
@@ -21,7 +20,6 @@ export default async function NewsletterPage() {
           <p className="mb-4 text-xs tracking-[0.25em] uppercase">The P.E.N newsletter</p>
           <h1 id="newsletter-title" className="font-[Georgia,serif] text-[clamp(2.5rem,5vw,4rem)] leading-tight tracking-[-0.045em]">Little stories. <span className="italic">Lasting connections.</span></h1>
           <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-[#44321b]/75">A window into learning, creativity, and life at school. Stay connected with stories from our community.</p>
-          <NewsletterSignup />
         </div>
       </section>
       <section aria-labelledby="blogs-title" className="content-container py-16 lg:py-20">

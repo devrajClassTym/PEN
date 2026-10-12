@@ -4,12 +4,33 @@ import { useState } from "react";
 
 export default function ContactForm() {
   const [message, setMessage] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const field = "mt-2 w-full rounded-lg border border-[#44321b]/25 bg-white px-4 py-3 text-base outline-none placeholder:text-[#44321b]/45 focus:border-[#44321b] focus:ring-2 focus:ring-[#b49a70]/30";
 
   return (
-    <form aria-label="Contact enquiry" aria-describedby="contact-form-note" className="rounded-3xl border border-[#44321b]/15 bg-white/60 p-6 sm:p-9" onSubmit={(event) => {
+    <form aria-label="Contact enquiry" aria-describedby="contact-form-note" className="rounded-3xl border border-[#44321b]/15 bg-white/60 p-6 sm:p-9" onSubmit={async (event) => {
       event.preventDefault();
-      setMessage("Unable to send your message. Please contact the school directly.");
+      if (submitting) return;
+      const form = event.currentTarget;
+      setSubmitting(true);
+      setMessage("Sending…");
+      try {
+        const response = await fetch("/api/enquiries", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ type: "contact", ...Object.fromEntries(new FormData(form)) }),
+        });
+        const result = await response.json();
+        if (!response.ok || result.success !== true) {
+          throw new Error(result.error || "Unable to send your enquiry. Please try again later.");
+        }
+        form.reset();
+        setMessage("Thank you! Your enquiry has been sent. Our team will contact you soon.");
+      } catch (error) {
+        setMessage(error instanceof Error ? error.message : "Unable to send your enquiry. Please try again later.");
+      } finally {
+        setSubmitting(false);
+      }
     }}>
       <h2 className="font-[Georgia,'Times_New_Roman',serif] text-3xl">Send us a message</h2>
       <p id="contact-form-note" className="mt-3 text-sm leading-relaxed text-[#44321b]/65">Fields marked * are required.</p>
@@ -20,7 +41,7 @@ export default function ContactForm() {
         <label className="text-sm font-medium" htmlFor="contact-subject">Enquiry about *<select id="contact-subject" name="subject" required defaultValue="" className={field}><option value="" disabled>Select a topic</option><option>Admissions</option><option>Campus visit</option><option>General enquiry</option><option>Careers</option></select></label>
         <label className="text-sm font-medium sm:col-span-2" htmlFor="contact-message">Your message *<textarea id="contact-message" name="message" required minLength={10} maxLength={3000} rows={5} placeholder="Tell us how we can help…" className={`${field} resize-y`} /></label>
       </div>
-      <button type="submit" className="mt-6 inline-flex min-h-12 items-center gap-8 rounded-full bg-[#44321b] px-7 py-3 text-base text-white hover:bg-[#302416] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#44321b]">Send message <span aria-hidden="true">↗</span></button>
+      <button type="submit" disabled={submitting} className="mt-6 inline-flex min-h-12 items-center gap-8 rounded-full bg-[#44321b] px-7 py-3 text-base text-white hover:bg-[#302416] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#44321b]">{submitting ? "Sending…" : "Send message"} <span aria-hidden="true">↗</span></button>
       <p role="status" className="mt-4 text-sm leading-relaxed text-[#44321b]/80">{message}</p>
     </form>
   );
