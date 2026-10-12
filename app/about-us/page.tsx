@@ -83,7 +83,7 @@ export default function AboutUs() {
             <div className="relative aspect-[4/3] overflow-hidden rounded-[24px] sm:rounded-[40px] bg-[#eee8da]">
               {/* Illustrative stock photo: https://unsplash.com/photos/OcDJhBm8Jnc */}
               <Image
-                src="https://images.unsplash.com/photo-1719159381916-062fa9f435a6?auto=format&fit=crop&w=1600&q=85"
+                src="/images/gallery/ourJourney.png"
                 alt="Students studying at desks in a school classroom"
                 fill
                 unoptimized
