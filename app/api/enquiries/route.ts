@@ -1,3 +1,5 @@
+import { callGoogleSheets, hasGoogleSheetsConfiguration } from "@/lib/google-sheets";
+
 export const runtime = "nodejs";
 
 const classes = ["Nursery", "LKG", "UKG", ...Array.from({ length: 12 }, (_, index) => `Class ${index + 1}`), "Help me choose"];
@@ -36,25 +38,12 @@ export async function POST(request: Request) {
       (kind === "admission" && (!classes.includes(cleaned.classApplyingFor) || !/^\+?[0-9\s()\-]{7,20}$/.test(cleaned.phone)))) {
     return Response.json({ error: "Please check your email, phone number and selected options." }, { status: 400 });
   }
-  const url = process.env.GOOGLE_APPS_SCRIPT_URL;
-  const secret = process.env.GOOGLE_APPS_SCRIPT_SECRET;
-  if (!url || !secret) {
+  if (!hasGoogleSheetsConfiguration()) {
     console.error("Enquiry storage: Apps Script URL or secret is missing.");
     return Response.json({ error: failure }, { status: 503 });
   }
   try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...cleaned, type: kind, secret }),
-      cache: "no-store",
-      redirect: "follow",
-      signal: AbortSignal.timeout(25000),
-    });
-    if (!response.ok) throw new Error("Apps Script request failed");
-    const result = await response.json();
-    // Apps Script can return HTTP 200 even when it rejects a submission.
-    if (result?.success !== true) throw new Error("Apps Script did not confirm the save");
+    await callGoogleSheets({ ...cleaned, type: kind });
     return Response.json({ success: true });
   } catch {
     // Do not log credentials, upstream response bodies or personal information.

@@ -35,7 +35,7 @@ export default function ContactUs() {
               id="contact-title"
               className="font-[Georgia,'Times_New_Roman',serif] text-[clamp(3rem,5.5vw,5.5rem)] leading-[1.08] tracking-[-0.045em]"
             >
-              Let's start a
+              Let&apos;s start a
               <br />
               <span className="italic">Conversation.</span>
             </h1>

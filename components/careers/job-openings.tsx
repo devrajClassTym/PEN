@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { schoolJobs, type SchoolJob } from "@/lib/school-jobs";
+import type { SchoolJob } from "@/lib/school-jobs";
 import ApplicationForm from "./application-form";
 
-export default function JobOpenings() {
+export default function JobOpenings({ jobs }: { jobs: SchoolJob[] }) {
   const [selected, setSelected] = useState<SchoolJob | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement | null>(null);
@@ -29,8 +29,9 @@ export default function JobOpenings() {
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div><p className="mb-4 text-xs tracking-[0.22em] uppercase">Find your next chapter</p><h2 id="openings-title" className="font-[Georgia,serif] text-4xl tracking-tight sm:text-5xl">Explore our <span className="italic">openings.</span></h2></div>
       </div>
+      {jobs.length === 0 && <p className="mt-10 text-sm">There are no openings at the moment. Please check back soon.</p>}
       <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {schoolJobs.map((job) => (
+        {jobs.map((job) => (
           <li key={job.id} className="min-w-0">
             <button type="button" aria-haspopup="dialog" aria-controls="career-dialog" aria-label={`View job and apply: ${job.title}`} onClick={(event) => { trigger.current = event.currentTarget; setSelected(job); }} className="group flex h-full w-full cursor-pointer flex-col rounded-xl border border-[#44321b]/15 bg-[#fffdf8] p-7 text-left transition-colors hover:border-[#92774f] hover:bg-[#eee8da]/50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#44321b] sm:p-8">
               <span className="text-[10px] tracking-[0.18em] text-[#92774f] uppercase">{job.department}</span>
@@ -54,7 +55,7 @@ export default function JobOpenings() {
               <p className="text-xs tracking-[0.18em] text-[#92774f] uppercase">{selected.department}</p>
               <h2 id="job-detail-title" className="mt-4 font-[Georgia,serif] text-3xl leading-tight tracking-tight sm:text-4xl">{selected.title}</h2>
               <p className="mt-5 text-sm leading-[1.9] text-[#44321b]/80">{selected.summary}</p>
-              <dl className="my-7 grid grid-cols-2 gap-5 border-y border-[#44321b]/15 py-5 text-sm"><div><dt className="text-xs text-[#44321b]/60">Employment</dt><dd className="mt-2">{selected.type}</dd></div><div><dt className="text-xs text-[#44321b]/60">Location</dt><dd className="mt-2">{selected.location} · Campus TBC</dd></div><div className="col-span-2"><dt className="text-xs text-[#44321b]/60">Experience</dt><dd className="mt-2">{selected.experience}</dd></div></dl>
+              <dl className="my-7 grid grid-cols-2 gap-5 border-y border-[#44321b]/15 py-5 text-sm"><div><dt className="text-xs text-[#44321b]/60">Employment</dt><dd className="mt-2">{selected.type}</dd></div><div><dt className="text-xs text-[#44321b]/60">Location</dt><dd className="mt-2">{selected.location}</dd></div><div className="col-span-2"><dt className="text-xs text-[#44321b]/60">Experience</dt><dd className="mt-2">{selected.experience}</dd></div></dl>
               <h3 className="font-[Georgia,serif] text-2xl">What you’ll do</h3>
               <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-relaxed text-[#44321b]/80">{selected.responsibilities.map((item) => <li key={item}>{item}</li>)}</ul>
               <h3 className="mt-7 font-[Georgia,serif] text-2xl">What you’ll bring</h3>

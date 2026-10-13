@@ -1,6 +1,4 @@
-import path from "node:path";
-import defaultEvents from "@/data/events.json";
-import { readJsonCollection, writeJsonCollection } from "@/lib/content-storage";
+import { readSheetCollection } from "@/lib/google-sheets";
 
 export type SchoolEvent = {
   id: string;
@@ -12,11 +10,5 @@ export type SchoolEvent = {
 };
 
 export async function getSchoolEvents(): Promise<SchoolEvent[]> {
-  const filePath = path.join(process.cwd(), "data", "events.json");
-  return readJsonCollection("content/events.json", filePath, defaultEvents as SchoolEvent[]);
-}
-
-export async function saveSchoolEvents(events: SchoolEvent[]) {
-  const filePath = path.join(process.cwd(), "data", "events.json");
-  return writeJsonCollection("content/events.json", filePath, events);
+  return readSheetCollection<SchoolEvent>("events");
 }

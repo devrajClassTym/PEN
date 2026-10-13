@@ -3,12 +3,17 @@ import Link from "next/link";
 import SchoolLogo from "@/components/school-logo";
 import JobOpenings from "@/components/careers/job-openings";
 
+import { getSchoolJobs } from "@/lib/school-jobs";
+
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Careers | P.E.N Schools",
   description: "Explore teaching and school support roles at P.E.N Schools and find a place to contribute to young learners’ journeys.",
 };
 
-export default function CareersPage() {
+export default async function CareersPage() {
+  const jobs = await getSchoolJobs();
   return (
     <main className="flex-1 bg-[#f8f6f0] text-[#44321b]">
       <section aria-labelledby="careers-title" className="relative border-b border-[#44321b]/10 bg-[#eee8da] pt-40 pb-12 text-center sm:pt-52 sm:pb-16">
@@ -19,7 +24,7 @@ export default function CareersPage() {
           <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-[#44321b]/75">Great school days begin with people who care. Explore opportunities to teach, inspire, and help our community grow.</p>
         </div>
       </section>
-      <JobOpenings />
+      <JobOpenings jobs={jobs} />
     </main>
   );
 }
