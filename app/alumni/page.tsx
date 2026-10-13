@@ -28,18 +28,11 @@ export default function AlumniPage() {
           {schoolAlumni.map((alum) => (
             <li key={alum.id} className="min-w-0">
               <article aria-labelledby={`alumni-${alum.id}`} className="flex h-full flex-col overflow-hidden rounded-xl border border-[#44321b]/15 bg-[#fffdf8]">
-                <div className={`relative flex h-52 items-center justify-center overflow-hidden ${alum.color}`}>
-                  <div aria-hidden="true" className="absolute -right-8 -bottom-16 h-56 w-56 rounded-full border border-[#44321b]/10" />
-                  <div aria-hidden="true" className="absolute -top-16 -left-12 h-48 w-48 rounded-full border border-[#44321b]/10" />
-                  <span aria-hidden="true" className="flex h-28 w-28 items-center justify-center rounded-full border border-[#44321b]/15 bg-[#fffdf8]/50 font-[Georgia,serif] text-4xl italic text-[#44321b]/75">{alum.initials}</span>
-                  <span className="absolute right-4 bottom-4 rounded-full bg-[#fffdf8]/85 px-3 py-1.5 text-[10px] tracking-[0.12em] uppercase">Class of {alum.batch}</span>
-                </div>
-                <div className="flex flex-1 flex-col p-7">
-                  <p className="text-[10px] tracking-[0.18em] text-[#92774f] uppercase">{alum.field}</p>
-                  <h3 id={`alumni-${alum.id}`} className="mt-3 font-[Georgia,serif] text-3xl tracking-tight">{alum.name}</h3>
-                  <p className="mt-2 text-sm font-medium">{alum.role}</p>
-                  <p className="mt-4 mb-6 text-sm leading-[1.9] text-[#44321b]/75">{alum.story}</p>
-                  <p className="mt-auto flex items-center gap-2 border-t border-[#44321b]/15 pt-4 text-xs text-[#44321b]/65"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" /><circle cx="12" cy="10" r="2.5" /></svg>{alum.location}</p>
+                <div className="flex flex-1 flex-col p-7 sm:p-8">
+                  <p className="text-[10px] tracking-[0.18em] text-[#92774f] uppercase">Batch {alum.batch}</p>
+                  <h3 id={`alumni-${alum.id}`} className="mt-4 font-[Georgia,serif] text-3xl tracking-tight">{alum.name}</h3>
+                  <p className="mt-4 mb-6 text-sm font-medium leading-relaxed">{alum.role}</p>
+                  <p className="mt-auto border-t border-[#44321b]/15 pt-4 text-sm leading-relaxed text-[#44321b]/75">{alum.company}</p>
                 </div>
               </article>
             </li>
