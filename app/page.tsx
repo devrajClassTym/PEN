@@ -6,6 +6,7 @@ import UpcomingEvents from "@/components/home/upcomingEvents";
 import FounderDesk from "@/components/home/founderDesk";
 import ParentReview from "@/components/home/parentReview";
 import { getSchoolEvents } from "@/lib/school-events";
+import { getUpcomingEvents } from "@/lib/event-dates";
 
 export const dynamic = "force-dynamic";
 
@@ -19,7 +20,7 @@ export default async function Home() {
       <FounderDesk />
       <Gallery />
       <ParentReview />
-      <UpcomingEvents events={events} />
+      <UpcomingEvents events={getUpcomingEvents(events)} />
     </main>
   );
 }

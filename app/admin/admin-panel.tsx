@@ -56,6 +56,9 @@ export default function AdminPanel() {
   const [activeTab, setActiveTab] = useState<Tab>("Events");
   const [error, setError] = useState("");
   const [events, setEvents] = useState<SchoolEvent[]>([]);
+  const allEvents = [...events].sort((a, b) =>
+    (a.schedule?.date ?? "9999").localeCompare(b.schedule?.date ?? "9999"),
+  );
   const [blogs, setBlogs] = useState<SchoolBlog[]>([]);
   const [loadingContent, setLoadingContent] = useState(false);
   const [savingContent, setSavingContent] = useState(false);
@@ -188,6 +191,11 @@ export default function AdminPanel() {
       month: String(form.get("month")).trim(),
       time: String(form.get("time")).trim(),
     };
+    const endDate = String(form.get("endDate") ?? "").trim();
+    if (endDate && (!scheduleValues.date || endDate < scheduleValues.date)) {
+      setError("End date must be on or after the start date.");
+      return;
+    }
     const hasSchedule = Object.values(scheduleValues).some(Boolean);
     if (hasSchedule && Object.values(scheduleValues).some((value) => !value)) {
       setError("Complete every schedule field or leave the whole schedule blank.");
@@ -199,7 +207,7 @@ export default function AdminPanel() {
       title,
       description: String(form.get("description")).trim(),
       details: String(form.get("details")).trim(),
-      ...(hasSchedule ? { schedule: scheduleValues } : {}),
+      ...(hasSchedule ? { schedule: { ...scheduleValues, ...(endDate ? { endDate } : {}) } } : {}),
     };
     if (await saveRecord("events", editor.mode === "add" ? "POST" : "PATCH", record)) setEditor(null);
   }
@@ -314,10 +322,10 @@ export default function AdminPanel() {
           </div>
           <div key={activeTab} id={`admin-panel-${activeTab}`} role="tabpanel" aria-labelledby={`admin-tab-${activeTab}`} tabIndex={0} className="rounded-3xl border border-[#44321b]/10 bg-white p-5 sm:p-8">
             <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-              <h2 className="font-serif text-3xl">{activeTab}</h2>
+              <div><h2 className="font-serif text-3xl">{activeTab === "Events" ? "All events" : activeTab}</h2>{activeTab === "Events" && <p className="mt-2 text-sm text-[#44321b]/65">{loadingContent ? "Loading events…" : `${allEvents.length} events · Past, ongoing, upcoming, and undated`}</p>}</div>
               {activeTab !== "Gallery" && <button type="button" onClick={() => { setError(""); setEditor(activeTab === "Events" ? { kind: "event", mode: "add" } : { kind: "blog", mode: "add" }); }} disabled={loadingContent || savingContent} className="rounded-xl bg-[#44321b] px-5 py-3 text-sm font-medium text-white hover:bg-[#60492b] disabled:opacity-50">{activeTab === "Events" ? "Add event" : "Add blog"}</button>}
             </div>
-            {activeTab === "Events" && <div className="grid gap-4 sm:grid-cols-2">{events.map((event) => <article key={event.id} className="flex min-w-0 flex-col rounded-xl border border-[#44321b]/15 p-5"><p className="text-xs font-semibold uppercase tracking-wider text-[#92774f]">{event.category}</p><h3 className="mt-2 text-xl font-semibold">{event.title}</h3><p className="mt-3 text-sm leading-6 text-[#44321b]/75">{event.description}</p><p className="mt-4 text-xs text-[#44321b]/65">{event.schedule ? `${event.schedule.day} ${event.schedule.month} · ${event.schedule.time}` : "Date to be confirmed"}</p><div className="mt-5 flex gap-2 border-t border-[#44321b]/10 pt-4"><button type="button" onClick={() => { setError(""); setEditor({ kind: "event", mode: "edit", key: event.id }); }} disabled={savingContent} className="rounded-lg border border-[#44321b]/20 px-4 py-2 text-sm font-medium hover:bg-[#44321b]/5 disabled:opacity-50">Edit</button><button type="button" onClick={() => void deleteEvent(event.id)} disabled={savingContent} className="rounded-lg border border-red-800/20 px-4 py-2 text-sm font-medium text-red-800 hover:bg-red-50 disabled:opacity-50">Delete</button></div></article>)}</div>}
+            {activeTab === "Events" && <div className="grid gap-4 sm:grid-cols-2">{allEvents.map((event) => <article key={event.id} className="flex min-w-0 flex-col rounded-xl border border-[#44321b]/15 p-5"><p className="text-xs font-semibold uppercase tracking-wider text-[#92774f]">{event.category}</p><h3 className="mt-2 text-xl font-semibold">{event.title}</h3><p className="mt-3 text-sm leading-6 text-[#44321b]/75">{event.description}</p><p className="mt-4 text-xs text-[#44321b]/65">{event.schedule ? `${event.schedule.day} ${event.schedule.month} · ${event.schedule.time}` : "Date to be confirmed"}</p><div className="mt-5 flex gap-2 border-t border-[#44321b]/10 pt-4"><button type="button" onClick={() => { setError(""); setEditor({ kind: "event", mode: "edit", key: event.id }); }} disabled={savingContent} className="rounded-lg border border-[#44321b]/20 px-4 py-2 text-sm font-medium hover:bg-[#44321b]/5 disabled:opacity-50">Edit</button><button type="button" onClick={() => void deleteEvent(event.id)} disabled={savingContent} className="rounded-lg border border-red-800/20 px-4 py-2 text-sm font-medium text-red-800 hover:bg-red-50 disabled:opacity-50">Delete</button></div></article>)}</div>}
             {activeTab === "Blogs" && <div className="grid gap-4 sm:grid-cols-2">{blogs.map((blog) => <article key={blog.slug} className="flex min-w-0 flex-col rounded-xl border border-[#44321b]/15 p-5"><p className="text-xs font-semibold uppercase tracking-wider text-[#92774f]">{blog.category}</p><h3 className="mt-2 text-xl font-semibold">{blog.title}</h3><p className="mt-3 text-sm leading-6 text-[#44321b]/75">{blog.excerpt}</p><p className="mt-4 text-xs text-[#44321b]/65">{blog.paragraphs.length} paragraphs</p><div className="mt-5 flex gap-2 border-t border-[#44321b]/10 pt-4"><button type="button" onClick={() => { setError(""); setEditor({ kind: "blog", mode: "edit", key: blog.slug }); }} disabled={savingContent} className="rounded-lg border border-[#44321b]/20 px-4 py-2 text-sm font-medium hover:bg-[#44321b]/5 disabled:opacity-50">Edit</button><button type="button" onClick={() => void deleteBlog(blog.slug)} disabled={savingContent} className="rounded-lg border border-red-800/20 px-4 py-2 text-sm font-medium text-red-800 hover:bg-red-50 disabled:opacity-50">Delete</button></div></article>)}</div>}
             {loadingContent && <p role="status" className="mt-4 text-sm">Loading JSON files…</p>}
             {contentStatus && <p role="status" className="mt-4 text-sm text-green-800">{contentStatus}</p>}
@@ -337,7 +345,7 @@ export default function AdminPanel() {
               <label className="block text-sm font-medium">Title<input name="title" required defaultValue={record?.title ?? ""} className={inputClass} /></label>
               <label className="block text-sm font-medium">Description<textarea name="description" required defaultValue={record?.description ?? ""} className={textareaClass} /></label>
               <label className="block text-sm font-medium">Details<textarea name="details" required defaultValue={record?.details ?? ""} className={textareaClass} /></label>
-              <fieldset className="rounded-xl border border-[#44321b]/15 p-4"><legend className="px-2 text-sm font-medium">Schedule (optional)</legend><div className="grid gap-4 sm:grid-cols-2"><label className="block text-sm">Date<input name="date" type="date" defaultValue={record?.schedule?.date ?? ""} className={inputClass} /></label><label className="block text-sm">Day<input name="day" defaultValue={record?.schedule?.day ?? ""} className={inputClass} /></label><label className="block text-sm">Month and year<input name="month" defaultValue={record?.schedule?.month ?? ""} className={inputClass} /></label><label className="block text-sm">Time<input name="time" defaultValue={record?.schedule?.time ?? ""} className={inputClass} /></label></div></fieldset>
+              <fieldset className="rounded-xl border border-[#44321b]/15 p-4"><legend className="px-2 text-sm font-medium">Schedule (optional)</legend><div className="grid gap-4 sm:grid-cols-2"><label className="block text-sm">Date<input name="date" type="date" defaultValue={record?.schedule?.date ?? ""} className={inputClass} /></label><label className="block text-sm">End date (optional)<input name="endDate" type="date" defaultValue={record?.schedule?.endDate ?? ""} className={inputClass} /></label><label className="block text-sm">Day or date range<input name="day" defaultValue={record?.schedule?.day ?? ""} className={inputClass} /></label><label className="block text-sm">Month and year<input name="month" defaultValue={record?.schedule?.month ?? ""} className={inputClass} /></label><label className="block text-sm">Time<input name="time" defaultValue={record?.schedule?.time ?? ""} className={inputClass} /></label></div></fieldset>
               {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
               <div className="flex justify-end gap-3 border-t border-[#44321b]/15 pt-5"><button type="button" onClick={() => setEditor(null)} className="rounded-xl border border-[#44321b]/20 px-5 py-3 text-sm font-medium hover:bg-[#44321b]/5">Cancel</button><button type="submit" disabled={savingContent} className="rounded-xl bg-[#44321b] px-5 py-3 text-sm font-medium text-white hover:bg-[#60492b] disabled:opacity-50">{savingContent ? "Saving…" : "Save event"}</button></div>
             </form>;

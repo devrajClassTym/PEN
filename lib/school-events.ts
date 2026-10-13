@@ -8,7 +8,7 @@ export type SchoolEvent = {
   category: string;
   description: string;
   details: string;
-  schedule?: { date: string; day: string; month: string; time: string };
+  schedule?: { date: string; endDate?: string; day: string; month: string; time: string };
 };
 
 export async function getSchoolEvents(): Promise<SchoolEvent[]> {

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { SchoolEvent } from "@/lib/school-events";
 
-export default function EventsGrid({ events: schoolEvents }: { events: SchoolEvent[] }) {
+export default function EventsGrid({ events: schoolEvents, today }: { events: SchoolEvent[]; today: string }) {
   const [selected, setSelected] = useState<SchoolEvent | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement | null>(null);
@@ -27,7 +27,7 @@ export default function EventsGrid({ events: schoolEvents }: { events: SchoolEve
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div>
           <p className="mb-5 text-xs tracking-[0.22em] uppercase">Explore / All events</p>
-          <h2 id="calendar-events-title" className="font-[Georgia,serif] text-4xl leading-tight tracking-tight sm:text-5xl">What’s <span className="italic">Happening Now</span></h2>
+          <h2 id="calendar-events-title" className="font-[Georgia,serif] text-4xl leading-tight tracking-tight sm:text-5xl">Your <span className="italic">School Calendar</span></h2>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-[#44321b]/75">Find a moment to be part of. Select any event to see the details.</p>
         </div>
         <span className="rounded-full border border-[#44321b]/20 px-5 py-2 text-sm">{schoolEvents.length} events to explore</span>
@@ -38,6 +38,7 @@ export default function EventsGrid({ events: schoolEvents }: { events: SchoolEve
             <button type="button" aria-haspopup="dialog" aria-controls="school-event-dialog" aria-label={`View details for ${event.title}`} onClick={(click) => { trigger.current = click.currentTarget; setSelected(event); }} className="group flex h-full w-full cursor-pointer flex-col border border-[#44321b]/15 bg-[#eee8da]/50 p-7 text-left transition-colors hover:border-[#92774f] hover:bg-[#eee8da] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#44321b] sm:p-8">
               <span className="flex w-full items-center justify-between gap-4 border-b border-[#44321b]/15 pb-6"><span className="text-[10px] tracking-[0.18em] uppercase">{event.category}</span><span aria-hidden="true" className="font-[Georgia,serif] text-4xl italic text-[#92774f]">{String(index + 1).padStart(2, "0")}</span></span>
               <span className="mt-6 text-xs tracking-wide text-[#44321b]/65">{event.schedule ? <time dateTime={event.schedule.date}>{event.schedule.day} {event.schedule.month}</time> : "Date to be announced"}</span>
+              {event.schedule && <span className="mt-2 text-xs font-medium text-[#92774f]">{(event.schedule.endDate ?? event.schedule.date) < today ? "Past event" : event.schedule.date <= today ? "Ongoing today" : "Upcoming"}</span>}
               <span className="mt-4 font-[Georgia,serif] text-3xl leading-tight">{event.title}</span>
               <span className="mt-4 mb-8 text-sm leading-[1.9] text-[#44321b]/75">{event.description}</span>
               <span className="mt-auto flex w-full items-center justify-between gap-4 border-t border-[#44321b]/15 pt-5 text-sm font-medium">View event details <span aria-hidden="true" className="flex h-8 w-8 items-center justify-center rounded-full border border-[#44321b]/25 transition-colors group-hover:bg-[#44321b] group-hover:text-white">↗</span></span>

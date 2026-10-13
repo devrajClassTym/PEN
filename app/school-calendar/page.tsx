@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import EventsGrid from "@/components/school-calendar/events-grid";
 import { getSchoolEvents } from "@/lib/school-events";
+import { getSchoolToday } from "@/lib/event-dates";
 
 export const dynamic = "force-dynamic";
 
@@ -28,7 +29,7 @@ export default async function SchoolCalendarPage() {
           <a href="#calendar-events" className="mt-5 inline-flex min-h-12 items-center gap-6 rounded-full border border-[#d9c6a5]/50 px-7 py-3 text-sm transition-colors hover:bg-[#d9c6a5] hover:text-[#44321b] focus-visible:outline-2 focus-visible:outline-offset-4">Explore events <span aria-hidden="true">↓</span></a>
         </div>
       </section>
-      <EventsGrid events={events} />
+      <EventsGrid events={events.sort((a, b) => (a.schedule?.date ?? "9999").localeCompare(b.schedule?.date ?? "9999"))} today={getSchoolToday()} />
     </main>
   );
 }

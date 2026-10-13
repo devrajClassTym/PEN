@@ -11,7 +11,8 @@ function isSchoolEvent(value: unknown): value is SchoolEvent {
   if (!value || typeof value !== "object") return false;
   const event = value as Partial<SchoolEvent>;
   return [event.id, event.title, event.category, event.description, event.details].every((field) => typeof field === "string")
-    && (!event.schedule || [event.schedule.date, event.schedule.day, event.schedule.month, event.schedule.time].every((field) => typeof field === "string"));
+    && (!event.schedule || [event.schedule.date, event.schedule.day, event.schedule.month, event.schedule.time].every((field) => typeof field === "string")
+      && (event.schedule.endDate === undefined || (typeof event.schedule.endDate === "string" && /^\d{4}-\d{2}-\d{2}$/.test(event.schedule.endDate) && event.schedule.endDate >= event.schedule.date)));
 }
 
 export async function GET() {

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import EventsCarousel from "@/components/academics/events-carousel";
 import { getSchoolEvents } from "@/lib/school-events";
+import { getUpcomingEvents } from "@/lib/event-dates";
 
 export const dynamic = "force-dynamic";
 
@@ -218,7 +219,7 @@ export default async function AcademicsPage() {
           </div>
         </div>
       </section>
-      <EventsCarousel events={events} />
+      <EventsCarousel events={getUpcomingEvents(events)} />
     </main>
   );
 }

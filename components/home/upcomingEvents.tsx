@@ -28,7 +28,7 @@ export default function UpcomingEvents({ events: schoolEvents = [] }: { events?:
   }, [activeIndex, events]);
 
   useEffect(() => {
-    if (hovered || focused) return;
+    if (hovered || focused || events.length < 2) return;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let previousTime = performance.now();
     let frame: number;
@@ -147,9 +147,10 @@ export default function UpcomingEvents({ events: schoolEvents = [] }: { events?:
               className="flex transition-transform duration-500 ease-out motion-reduce:transition-none"
               style={{ transform: `translateX(-${activeIndex * 100}%)` }}
             >
+              {events.length === 0 && <p className="py-8 text-sm text-[#f8f6f0]/75">No upcoming events are scheduled. Check the school calendar for updates.</p>}
               {events.map((event, index) => (
                 <article
-                  key={event.date}
+                  key={`${event.date}-${event.name}`}
                   role="group"
                   aria-roledescription="slide"
                   aria-label={`${index + 1} of ${events.length}`}
@@ -198,7 +199,7 @@ export default function UpcomingEvents({ events: schoolEvents = [] }: { events?:
               aria-atomic="true"
               className="text-xs tracking-[0.15em]"
             >
-              {String(activeIndex + 1).padStart(2, "0")}{" "}
+              {String(events.length ? activeIndex + 1 : 0).padStart(2, "0")}{" "}
               <span className="mx-2 text-[#d9c6a5]/55">/</span>{" "}
               {String(events.length).padStart(2, "0")}
             </p>

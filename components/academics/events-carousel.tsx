@@ -104,7 +104,7 @@ export default function EventsCarousel({ events }: { events: SchoolEvent[] }) {
           <button
             type="button"
             onClick={() => move(-1)}
-            disabled={position.atStart}
+            disabled={events.length === 0 || position.atStart}
             aria-label="Previous events"
             aria-controls="academics-event-track"
             className={buttonClass}
@@ -114,7 +114,7 @@ export default function EventsCarousel({ events }: { events: SchoolEvent[] }) {
           <button
             type="button"
             onClick={() => move(1)}
-            disabled={position.atEnd}
+            disabled={events.length === 0 || position.atEnd}
             aria-label="Next events"
             aria-controls="academics-event-track"
             className={buttonClass}
@@ -159,6 +159,7 @@ export default function EventsCarousel({ events }: { events: SchoolEvent[] }) {
           }}
           className={`${styles.track} flex snap-x snap-mandatory gap-6 overflow-x-auto overscroll-x-contain focus-visible:outline-2 focus-visible:outline-offset-4`}
         >
+          {events.length === 0 && <p className="py-8 text-sm">No upcoming events are scheduled. Check back for updates.</p>}
           {events.map((event, index) => (
             <article
               key={event.title}
@@ -175,7 +176,7 @@ export default function EventsCarousel({ events }: { events: SchoolEvent[] }) {
                   aria-hidden="true"
                   className="font-[Georgia,serif] text-4xl italic text-[#92774f]"
                 >
-                  0{index + 1}
+                  {String(index + 1).padStart(2, "0")}
                 </span>
               </div>
               <h3 className="mt-7 font-[Georgia,serif] text-3xl leading-tight">
@@ -197,7 +198,7 @@ export default function EventsCarousel({ events }: { events: SchoolEvent[] }) {
           aria-atomic="true"
           className="mt-4 text-xs tracking-wider text-[#44321b]/65"
         >
-          Events {position.start}–{position.end} of {events.length}
+          {events.length ? `Events ${position.start}–${position.end} of ${events.length}` : "0 events"}
         </p>
       </div>
       <div className="mt-8 flex justify-center">
