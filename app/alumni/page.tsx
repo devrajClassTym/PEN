@@ -27,12 +27,18 @@ export default function AlumniPage() {
         <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {schoolAlumni.map((alum) => (
             <li key={alum.id} className="min-w-0">
-              <article aria-labelledby={`alumni-${alum.id}`} className="flex h-full flex-col overflow-hidden rounded-xl border border-[#44321b]/15 bg-[#fffdf8]">
+              <article aria-labelledby={`alumni-${alum.id}`} className="group relative isolate flex h-full flex-col overflow-hidden rounded-xl border border-[#44321b]/15 bg-[#fffdf8] transition-colors hover:border-[#92774f]/50">
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 120 120" fill="none" className="pointer-events-none absolute -top-5 -right-5 -z-10 h-32 w-32 text-[#92774f]/15 transition-transform duration-500 motion-safe:group-hover:rotate-12">
+                  <circle cx="75" cy="45" r="42" stroke="currentColor" />
+                  <circle cx="75" cy="45" r="30" stroke="currentColor" />
+                  <path d="M75 1v88M31 45h88M44 14l62 62M44 76l62-62" stroke="currentColor" />
+                  <path d="m29 91 3-8 3 8 8 3-8 3-3 8-3-8-8-3Z" fill="currentColor" />
+                </svg>
                 <div className="flex flex-1 flex-col p-7 sm:p-8">
                   <p className="text-[10px] tracking-[0.18em] text-[#92774f] uppercase">Batch {alum.batch}</p>
                   <h3 id={`alumni-${alum.id}`} className="mt-4 font-[Georgia,serif] text-3xl tracking-tight">{alum.name}</h3>
                   <p className="mt-4 mb-6 text-sm font-medium leading-relaxed">{alum.role}</p>
-                  <p className="mt-auto border-t border-[#44321b]/15 pt-4 text-sm leading-relaxed text-[#44321b]/75">{alum.company}</p>
+                  <p className="mt-auto flex items-start gap-3 border-t border-[#44321b]/15 pt-4 text-sm leading-relaxed text-[#44321b]/75"><span aria-hidden="true" className="mt-1.5 h-2 w-2 shrink-0 rotate-45 border border-[#92774f]/60 bg-[#d9c6a5]/30" />{alum.company}</p>
                 </div>
               </article>
             </li>
