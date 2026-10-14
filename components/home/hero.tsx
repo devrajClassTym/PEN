@@ -24,7 +24,7 @@ export default function Hero({
           />
         </div>
         <video
-          className="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover motion-reduce:hidden"
+          className="pointer-events-none absolute inset-0 -z-20 h-full w-full origin-top-left scale-[1.2] object-cover motion-reduce:hidden"
           src={videoSrc}
           poster={posterSrc}
           autoPlay
